@@ -1,4 +1,4 @@
-package Entities;
+package src.Entities;
 
 public class Base {
     
