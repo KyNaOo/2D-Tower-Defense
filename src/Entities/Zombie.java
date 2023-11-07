@@ -8,6 +8,7 @@ public abstract class Zombie {
     protected boolean nearBase = false;
     protected Plant nearestPlant;
     protected boolean isSlow = false;
+    protected boolean isAlive = true;
 
     public Zombie(int hp, int damage, int speed, int atkSpeed) {
         this.hp = hp;
@@ -15,7 +16,7 @@ public abstract class Zombie {
         this.speed = speed;
         this.atkSpeed = atkSpeed;
     }
-    protected void attack(Ally ally){
+    public void attack(Ally ally){
         if (ally instanceof Plant){
             ally.recieveDamage(this.damage);
         } else if (ally instanceof Base) {
@@ -23,6 +24,11 @@ public abstract class Zombie {
         }
     }
     public void recieveDamage(int damage){
-        this.hp -= damage;
+        if (this.hp - damage <0){
+            this.hp = 0;
+            this.isAlive = false;
+        } else {
+            this.hp -= damage;
+        }
     }
 }
