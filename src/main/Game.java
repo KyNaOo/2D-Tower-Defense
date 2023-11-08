@@ -1,54 +1,83 @@
 package src.main;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
+import src.Inputs.KeyboardListener;
+import src.Inputs.MyMouseListener;
+import src.Scenes.Menu;
+import src.Scenes.Playing;
+import src.Scenes.Settings;
 import javax.swing.JFrame;
 
 public class Game extends JFrame implements Runnable{
 
     private GameScreen gameScreen;
-
-    private BufferedImage img;
     private long lastTime;
     private Thread gameThread;
     private final double FPS_SET = 120.0;
     private final double UPS_SET = 60.0;
-    public Game() {
-        importImg();
+    private MyMouseListener myMouseListener;
+    private KeyboardListener keyboardListener;
+    private Render render;
 
-        setSize(640, 640);
-        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Use JFrame.EXIT_ON_CLOSE
+    private Menu menu;
+    private Playing playing;
+    private Settings settings;
+    public Game() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        gameScreen=new GameScreen(img);
+        initClasses();
+
         add(gameScreen);
+        pack();
         setVisible(true);
     }
 
-   
-     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("img/spriteatlas.png");
-
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public Menu getMenu() {
+        return menu;
     }
+
+    public Playing getPlaying() {
+        return playing;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    private void initClasses() {
+        render = new Render(this);
+        gameScreen=new GameScreen(this);
+        this.menu = new Menu(this);
+        playing = new Playing(this);
+        settings = new Settings(this);
+    }
+
+    private void initInput(){
+        myMouseListener = new MyMouseListener();
+        keyboardListener = new KeyboardListener();
+
+        addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseListener);
+        addKeyListener(keyboardListener);
+
+        requestFocus();
+    }
+   
+
     private void start(){
         gameThread = new Thread(this){};
         gameThread.start();
     }
     public static void main(String[] args) {
         Game game = new Game();
+        game.initInput();
         game.start();
     }
 
+
+    public Render getRender() {
+        return render;
+    }
 
     @Override
     public void run() {
@@ -62,14 +91,17 @@ public class Game extends JFrame implements Runnable{
         int updates = 0;
 
         long lastTimeCheck = System.currentTimeMillis();
+
+        long now;
         while (true){
-            if(System.nanoTime()-lastFrame >= timePerFrame){
-                lastFrame = System.nanoTime();
+            now = System.nanoTime();
+            if(now-lastFrame >= timePerFrame){
+                lastFrame = now;
                 repaint();
                 frames++;
             }
-            if (System.nanoTime() - lastUpdate >= timePerUpdate){
-                lastUpdate = System.nanoTime();
+            if (now - lastUpdate >= timePerUpdate){
+                lastUpdate = now;
                 updates++;
             }
             if(System.currentTimeMillis() - lastTimeCheck>=1000){
@@ -80,8 +112,6 @@ public class Game extends JFrame implements Runnable{
             }
 
         }
-
-
 
     }
 }
