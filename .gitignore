@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+out/
+T-JAV-501-PAR_24.iml
+.idea
 # Log file
 *.log
 
