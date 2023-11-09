@@ -22,7 +22,7 @@ public class Render {
             case PLAYING:
                 game.getPlaying().render(g);
                 break;
-            case SETTINGS:
+            case QUIT:
                 game.getSettings().render(g);
                 break;
         }

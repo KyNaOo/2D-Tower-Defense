@@ -20,7 +20,7 @@ public class KeyboardListener implements KeyListener {
         } else if (keyEvent.getKeyCode()== KeyEvent.VK_S){
             GameStates.gameStates = PLAYING;
         } else if (keyEvent.getKeyCode()== KeyEvent.VK_D){
-            GameStates.gameStates = SETTINGS;
+            GameStates.gameStates = QUIT;
         }
     }
 

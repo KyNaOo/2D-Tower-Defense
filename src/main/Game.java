@@ -4,7 +4,7 @@ import src.Inputs.KeyboardListener;
 import src.Inputs.MyMouseListener;
 import src.Scenes.Menu;
 import src.Scenes.Playing;
-import src.Scenes.Settings;
+import src.Scenes.Quit;
 import javax.swing.JFrame;
 
 public class Game extends JFrame implements Runnable{
@@ -14,13 +14,11 @@ public class Game extends JFrame implements Runnable{
     private Thread gameThread;
     private final double FPS_SET = 120.0;
     private final double UPS_SET = 60.0;
-    private MyMouseListener myMouseListener;
-    private KeyboardListener keyboardListener;
     private Render render;
 
     private Menu menu;
     private Playing playing;
-    private Settings settings;
+    private Quit quit;
     public Game() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -41,8 +39,8 @@ public class Game extends JFrame implements Runnable{
         return playing;
     }
 
-    public Settings getSettings() {
-        return settings;
+    public Quit getSettings() {
+        return quit;
     }
 
     private void initClasses() {
@@ -50,18 +48,7 @@ public class Game extends JFrame implements Runnable{
         gameScreen=new GameScreen(this);
         this.menu = new Menu(this);
         playing = new Playing(this);
-        settings = new Settings(this);
-    }
-
-    private void initInput(){
-        myMouseListener = new MyMouseListener();
-        keyboardListener = new KeyboardListener();
-
-        addMouseListener(myMouseListener);
-        addMouseMotionListener(myMouseListener);
-        addKeyListener(keyboardListener);
-
-        requestFocus();
+        quit = new Quit(this);
     }
    
 
@@ -71,7 +58,7 @@ public class Game extends JFrame implements Runnable{
     }
     public static void main(String[] args) {
         Game game = new Game();
-        game.initInput();
+        game.gameScreen.initInput();
         game.start();
     }
 
