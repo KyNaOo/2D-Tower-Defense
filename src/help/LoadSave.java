@@ -8,17 +8,18 @@ import javax.imageio.ImageIO;
 
 public class LoadSave {
 
-    public static BufferedImage getSpriteAtlas(){
-        BufferedImage img = null;
+	public static BufferedImage getSpriteAtlas() {
 
-        InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("src/main/img/spriteatlas.png");
+		BufferedImage img = null;
+		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("src/help/spriteatlas.png");
 
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return img;
-    }
+		try {
+			img = ImageIO.read(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return img;
+	}
+
 }

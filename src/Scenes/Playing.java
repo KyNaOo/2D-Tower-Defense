@@ -1,51 +1,124 @@
 package src.Scenes;
 
-
-import src.main.Game;
 import src.help.LevelBuild;
+import src.main.Game;
 import src.managers.TileManager;
+import src.objects.Tile;
+import src.ui.BottomBar;
 
 import java.awt.*;
 
 public class Playing extends GameScene implements SceneMethods {
 
-    private int[][] lvl;
-    private TileManager tileManager;
+	private int[][] lvl;
+	private TileManager tileManager;
+	private Tile selectedTile;
+	private BottomBar bottomBar;
+	private int mouseX, mouseY;
+	private int lastTileX, lastTileY, lastTileId;
+	private boolean drawSelect;
 
+	public Playing(Game game) {
+		super(game);
 
-    public Playing(Game game) {
-        super(game);
-        lvl=LevelBuild.getLevelData();
-        tileManager=new TileManager();
-    }
+		lvl = LevelBuild.getLevelData();
+		tileManager = new TileManager();
+		bottomBar = new BottomBar(0, 640, 640, 100, this);
 
-    @Override
-    public void render(Graphics g) {
-        for(int y=0; y<lvl.length; y++) {
-             for(int x=0; x<lvl[y].length;x++){
-                int id =lvl[y][x];
-                g.drawImage(tileManager.getSprite(id), y*32, x*32,null);
-             }
-        }
-    }
+	}
 
-    @Override
-    public void mouseClicked(int x, int y) {
+	@Override
+	public void render(Graphics g) {
 
-    }
+		for (int y = 0; y < lvl.length; y++) {
+			for (int x = 0; x < lvl[y].length; x++) {
+				int id = lvl[y][x];
+				g.drawImage(tileManager.getSprite(id), x * 32, y * 32, null);
+			}
+		}
 
-    @Override
-    public void mouseMoved(int x, int y) {
+		bottomBar.draw(g);
+		drawSelectedTile(g);
 
-    }
+	}
 
-    @Override
-    public void mousePressed(int x, int y) {
+	private void drawSelectedTile(Graphics g) {
+		if (selectedTile != null && drawSelect) {
+			g.drawImage(selectedTile.getSprite(), mouseX, mouseY, 32, 32, null);
+		}
 
-    }
+	}
 
-    @Override
-    public void mouseReleased(int x, int y) {
+	public void setSelectedTile(Tile tile) {
+		this.selectedTile = tile;
+		drawSelect = true;
+	}
 
-    }
+	public TileManager getTileManger() {
+		return tileManager;
+	}
+
+	private void changeTile(int x, int y) {
+		if (selectedTile != null) {
+
+			int tileX = x / 32;
+			int tileY = y / 32;
+
+			if (lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId())
+				return;
+
+			lastTileX = tileX;
+			lastTileY = tileY;
+			lastTileId = selectedTile.getId();
+
+			lvl[tileY][tileX] = selectedTile.getId();
+		}
+	}
+
+	@Override
+	public void mouseClicked(int x, int y) {
+		if (y >= 640) {
+			bottomBar.mouseClicked(x, y);
+		} else {
+			changeTile(mouseX, mouseY);
+		}
+	}
+
+	@Override
+	public void mouseMoved(int x, int y) {
+
+		if (y >= 640) {
+			bottomBar.mouseMoved(x, y);
+			drawSelect = false;
+		} else {
+			drawSelect = true;
+			mouseX = (x / 32) * 32;
+			mouseY = (y / 32) * 32;
+		}
+	}
+
+	@Override
+	public void mousePressed(int x, int y) {
+		if (y >= 640) {
+			bottomBar.mousePressed(x, y);
+		}
+	}
+
+	@Override
+	public void mouseReleased(int x, int y) {
+
+		bottomBar.mouseReleased(x, y);
+
+	}
+
+	@Override
+	public void mouseDragged(int x, int y) {
+		if (y >= 640) {
+
+		} else {
+			changeTile(x, y);
+		}
+
+	}
+
 }

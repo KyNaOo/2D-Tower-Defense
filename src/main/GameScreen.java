@@ -1,47 +1,52 @@
 package src.main;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
 import src.Inputs.KeyboardListener;
 import src.Inputs.MyMouseListener;
 
-import javax.swing.JPanel;
+public class GameScreen extends JPanel {
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Random;
+	private Game game;
+	private Dimension size;
 
-public class GameScreen extends JPanel{
-    private Game game;
-    private Dimension size;
-    private MyMouseListener myMouseListener;
-    private KeyboardListener keyboardListener;
+	private MyMouseListener myMouseListener;
+	private KeyboardListener keyboardListener;
 
-    public GameScreen(Game game){
-        this.game = game;
-        setPanelSize();
-    }
+	public GameScreen(Game game) {
+		this.game = game;
 
-    public void initInput(){
-        myMouseListener = new MyMouseListener(game);
-        keyboardListener = new KeyboardListener();
+		setPanelSize();
 
-        addMouseListener(myMouseListener);
-        addMouseMotionListener(myMouseListener);
-        addKeyListener(keyboardListener);
+	}
 
-        requestFocus();
-    }
+	public void initInputs() {
+		myMouseListener = new MyMouseListener(game);
+		keyboardListener = new KeyboardListener();
 
-    private void setPanelSize() {
-        size = new Dimension(640,640);
-        setMinimumSize(size);
-        setMaximumSize(size);
-        setPreferredSize(size);
+		addMouseListener(myMouseListener);
+		addMouseMotionListener(myMouseListener);
+		addKeyListener(keyboardListener);
 
-    }
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        game.getRender().render(g);
-    }
+		requestFocus();
+	}
+
+	private void setPanelSize() {
+		size = new Dimension(640, 740);
+
+		setMinimumSize(size);
+		setPreferredSize(size);
+		setMaximumSize(size);
+
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
+		game.getRender().render(g);
+
+	}
 
 }

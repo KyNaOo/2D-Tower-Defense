@@ -1,9 +1,13 @@
 package src.main;
 
 public enum GameStates {
-    PLAYING, MENU, QUIT;
-    public static GameStates gameStates = MENU;
-    public static void setGameState(GameStates states){
-        gameStates = states;
-    }
+
+	PLAYING, MENU, SETTINGS;
+
+	public static GameStates gameState = MENU;
+
+	public static void SetGameState(GameStates state) {
+		gameState = state;
+	}
+
 }
