@@ -27,6 +27,7 @@ public class Game extends JFrame implements Runnable{
 
         initClasses();
 
+        setResizable(false);
         add(gameScreen);
         pack();
         setVisible(true);
