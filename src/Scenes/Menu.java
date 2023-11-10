@@ -36,7 +36,7 @@ public class Menu extends GameScene implements SceneMethods {
 		int yOffset = 100;
 
 		bPlaying = new MyButton("Play", x, y, w, h);
-		bSettings = new MyButton("Settings", x, y + yOffset, w, h);
+		//bSettings = new MyButton("Settings", x, y + yOffset, w, h);
 		bQuit = new MyButton("Quit", x, y + yOffset * 2, w, h);
 
 	}
@@ -50,7 +50,7 @@ public class Menu extends GameScene implements SceneMethods {
 
 	private void drawButtons(Graphics g) {
 		bPlaying.draw(g);
-		bSettings.draw(g);
+		//bSettings.draw(g);
 		bQuit.draw(g);
 
 	}
@@ -82,23 +82,23 @@ public class Menu extends GameScene implements SceneMethods {
 
 		if (bPlaying.getBounds().contains(x, y)) {
 			SetGameState(PLAYING);
-		} else if (bSettings.getBounds().contains(x, y)) {
+		}/* else if (bSettings.getBounds().contains(x, y)) {
 			SetGameState(SETTINGS);
-		} else if (bQuit.getBounds().contains(x, y))
+		}*/ else if (bQuit.getBounds().contains(x, y))
 			System.exit(0);
 	}
 
 	@Override
 	public void mouseMoved(int x, int y) {
 		bPlaying.setMouseOver(false);
-		bSettings.setMouseOver(false);
+		//bSettings.setMouseOver(false);
 		bQuit.setMouseOver(false);
 
 		if (bPlaying.getBounds().contains(x, y)) {
 			bPlaying.setMouseOver(true);
-		} else if (bSettings.getBounds().contains(x, y)) {
+		} /*else if (bSettings.getBounds().contains(x, y)) {
 			bSettings.setMouseOver(true);
-		} else if (bQuit.getBounds().contains(x, y)) {
+		}*/ else if (bQuit.getBounds().contains(x, y)) {
 			bQuit.setMouseOver(true);
 		}
 
@@ -109,9 +109,9 @@ public class Menu extends GameScene implements SceneMethods {
 
 		if (bPlaying.getBounds().contains(x, y)) {
 			bPlaying.setMousePressed(true);
-		} else if (bSettings.getBounds().contains(x, y)) {
+		} /*else if (bSettings.getBounds().contains(x, y)) {
 			bSettings.setMousePressed(true);
-		} else if (bQuit.getBounds().contains(x, y)) {
+		}*/ else if (bQuit.getBounds().contains(x, y)) {
 			bQuit.setMousePressed(true);
 		}
 
@@ -124,7 +124,7 @@ public class Menu extends GameScene implements SceneMethods {
 
 	private void resetButtons() {
 		bPlaying.resetBooleans();
-		bSettings.resetBooleans();
+		//bSettings.resetBooleans();
 		bQuit.resetBooleans();
 	}
 

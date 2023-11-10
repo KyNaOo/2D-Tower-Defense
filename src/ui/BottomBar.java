@@ -52,7 +52,7 @@ public class BottomBar {
 	private void drawButtons(Graphics g) {
 		bMenu.draw(g);
 
-		drawTileButtons(g);
+		//drawTileButtons(g);
 		drawSelectedTile(g);
 
 	}
@@ -67,7 +67,7 @@ public class BottomBar {
 
 	}
 
-	private void drawTileButtons(Graphics g) {
+	/*private void drawTileButtons(Graphics g) {
 		for (MyButton b : tileButtons) {
 
 			// Sprite
@@ -90,8 +90,7 @@ public class BottomBar {
 
 		}
 
-	}
-
+	}*/
 	public BufferedImage getButtImg(int id) {
 		return playing.getTileManger().getSprite(id);
 	}
