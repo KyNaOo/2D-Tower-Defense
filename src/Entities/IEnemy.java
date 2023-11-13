@@ -1,6 +1,6 @@
 package src.Entities;
 
-public interface Ennemy {
+public interface IEnemy {
     public void recieveDamage(int damage);
-    public void attack(Ally ally);
+    public void attack(IAlly ally);
 }
