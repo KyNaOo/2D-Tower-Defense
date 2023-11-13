@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import src.help.LoadSave;
 import src.objects.Tile;
+import static src.help.Constants.Tiles.*;
 
 public class TileManager {
 
@@ -22,9 +23,9 @@ public class TileManager {
 	private void createTiles() {
 
 		int id = 0;
-		tiles.add(GRASS = new Tile(getSprite(8, 1), id++, "Grass"));
-		tiles.add(WATER = new Tile(getSprite(0, 6), id++, "Water"));
-		tiles.add(ROAD = new Tile(getSprite(9, 0), id++, "Road"));
+		tiles.add(GRASS = new Tile(getSprite(8, 1), id++, GRASS_TILE));
+		tiles.add(WATER = new Tile(getSprite(0, 6), id++, WATER_TILE));
+		tiles.add(ROAD = new Tile(getSprite(9, 0), id++, ROAD_TILE));
 
 	}
 
