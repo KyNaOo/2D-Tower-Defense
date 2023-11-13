@@ -42,10 +42,10 @@ public class BottomBar {
 		int xOffset = (int) (w * 1.1f);
 
 		int i = 0;
-		for (Tile tile : playing.getTileManger().tiles) {
+		/*for (Tile tile : playing.getTileManger().tiles) {
 			tileButtons.add(new MyButton(tile.getName(), xStart + xOffset * i, yStart, w, h, i));
 			i++;
-		}
+		}*/
 
 	}
 
@@ -91,9 +91,9 @@ public class BottomBar {
 		}
 
 	}*/
-	public BufferedImage getButtImg(int id) {
+	/*public BufferedImage getButtImg(int id) {
 		return playing.getTileManger().getSprite(id);
-	}
+	}*/
 
 	public void draw(Graphics g) {
 
@@ -108,7 +108,7 @@ public class BottomBar {
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y))
 			SetGameState(MENU);
-		else {
+		/*else {
 			for (MyButton b : tileButtons) {
 				if (b.getBounds().contains(x, y)) {
 					selectedTile = playing.getTileManger().getTile(b.getId());
@@ -116,7 +116,7 @@ public class BottomBar {
 					return;
 				}
 			}
-		}
+		}*/
 
 	}
 

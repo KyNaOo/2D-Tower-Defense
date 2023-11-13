@@ -2,7 +2,7 @@ package src.Entities;
 
 import java.awt.Rectangle;
 
-public class AEnemy {
+public class Plant {
 
     private float x, y;
     private Rectangle bounds;
@@ -10,7 +10,7 @@ public class AEnemy {
     private int ID;
     private int enemyType;
 
-    public AEnemy(float x, float y, int ID, int enemyType) {
+    public Plant(float x, float y, int ID, int enemyType) {
         this.x = x;
         this.y = y;
         this.ID = ID;
