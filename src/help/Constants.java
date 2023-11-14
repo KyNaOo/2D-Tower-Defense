@@ -27,13 +27,28 @@ public class Constants {
         public static final int UP = 1;
         public static final int RIGHT = 2;
         public static final int DOWN = 3;
+
     }
+
     public static class Plants{
         public static final int PLANT_BASIC = 0;
         public static final int PLANT_FAST = 1;
         public static final int PLANT_WARRIOR = 2;
         public static final int PLANT_BOSS = 3;
 
+        public static float GetSpeed(int enemyType) {
+			switch (enemyType) {
+			case PLANT_BASIC:
+				return 0.5f;
+			case PLANT_BOSS:
+				return 0.5f;
+			case PLANT_WARRIOR:
+				return 0.3f;
+			case PLANT_FAST:
+				return 1f;
+			}
+			return 0;
+		}
     }
     public static class Tiles{
         public static final int WATER_TILE = 0;
@@ -42,4 +57,6 @@ public class Constants {
         public static final int STONE_TILE = 3;
         public static final int END_TILE = 4;
     }
+
+    
 }
