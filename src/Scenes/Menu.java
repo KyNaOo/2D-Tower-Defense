@@ -57,7 +57,7 @@ public class Menu extends GameScene implements SceneMethods {
 
 	private void importImg() {
 
-		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("src/help/spriteatlas.png");
+		InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("src/help/spriteV2.png");
 
 		try {
 			img = ImageIO.read(is);
@@ -69,7 +69,7 @@ public class Menu extends GameScene implements SceneMethods {
 
 	private void loadSprites() {
 
-		for (int y = 0; y < 10; y++) {
+		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 10; x++) {
 				sprites.add(img.getSubimage(x * 32, y * 32, 32, 32));
 			}

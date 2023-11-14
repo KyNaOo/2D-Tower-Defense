@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import static src.help.Constants.Direction.*;
 
-public class Plant {
+public abstract class APlant {
 
     private float x, y;
     private Rectangle bounds;
@@ -17,13 +17,13 @@ public class Plant {
         return lastDir;
     }
 
-    public Plant(float x, float y, int ID, int enemyType) {
+    public APlant(float x, float y, int ID, int enemyType) {
         this.x = x;
         this.y = y;
         this.ID = ID;
         this.enemyType = enemyType;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
-        lastDir = RIGHT;
+        lastDir = -1;
     }
 
     public void move(float speed, int dir) {

@@ -4,45 +4,50 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import src.Entities.Plant;
+import src.Entities.*;
 import src.help.LoadSave;
 import src.Scenes.Playing;
 
 import static src.help.Constants.Direction.*;
+import static src.help.Constants.Plants.*;
 import static src.help.Constants.Tiles.*;
 
 public class EnemyManager {
 
 	private Playing playing;
 	private BufferedImage[] enemyImgs;
-	private ArrayList<Plant> enemies = new ArrayList<>();
+	private ArrayList<APlant> enemies = new ArrayList<>();
 	private float speed = 0.5f;
 
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[4];
-		addEnemy(10 * 32, 2 * 32);
+		addEnemy(0 * 32, 2 * 32, PLANT_BASIC);
+		addEnemy(1 * 32, 2 * 32, PLANT_FAST);
+		addEnemy(2 * 32, 2 * 32, PLANT_WARRIOR);
+		addEnemy(3 * 32, 2 * 32, PLANT_BOSS);
 		loadEnemyImgs();
 	}
 
 	private void loadEnemyImgs() {
 		BufferedImage atlas = LoadSave.getSpriteAtlas();
-		enemyImgs[0] = atlas.getSubimage(9*32, 2*32, 32, 32);
+		enemyImgs[0] = atlas.getSubimage(0, 1*32, 32, 32);
 		enemyImgs[1] = atlas.getSubimage(32, 32, 32, 32);
 		enemyImgs[2] = atlas.getSubimage(2 * 32, 32, 32, 32);
 		enemyImgs[3] = atlas.getSubimage(3 * 32, 32, 32, 32);
+
 	}
 
 	public void update() {
-		for (Plant e : enemies){
-			if (isNextTileRoad(e)) {
-				//sdsqs
-
-			}
+		for (APlant e : enemies){
+			updateEnemyMove(e);
 		}
 	}
 
-	private boolean isNextTileRoad(Plant e) {
+	private void updateEnemyMove(APlant e) {
+		if (e.getLastDir() == -1){
+			setNewDirectionAndMove(e);
+		}
 		int newX = (int) (e.getX() + getSpeedAndWidth(e.getLastDir()));
 		int newY = (int) (e.getY() + getSpeedAndHeight(e.getLastDir()));
 		if (getTileType(newX, newY)== ROAD_TILE){
@@ -52,10 +57,9 @@ public class EnemyManager {
 		} else {
 			setNewDirectionAndMove(e);
 		}
-		return false;
 	}
 
-	private void setNewDirectionAndMove(Plant e) {
+	private void setNewDirectionAndMove(APlant e) {
 		int dir = e.getLastDir();
 		int xCord = (int) (e.getX()/32);
 		int yCord = (int) (e.getY()/32);
@@ -77,7 +81,7 @@ public class EnemyManager {
 		}
 	}
 
-	private void fixEnemeyOffsetTile(Plant e, int dir, int xCord, int yCord) {
+	private void fixEnemeyOffsetTile(APlant e, int dir, int xCord, int yCord) {
 		switch (dir){
 			/*case LEFT:
 				if (xCord >0){
@@ -103,7 +107,7 @@ public class EnemyManager {
 		e.setPos(xCord*32, yCord*32);
 	}
 
-	private boolean isAtEnd(Plant e) {
+	private boolean isAtEnd(APlant e) {
 		return false;
 	}
 
@@ -129,18 +133,31 @@ public class EnemyManager {
 		return 0;
 	}
 
-	public void addEnemy(int x, int y) {
-		enemies.add(new Plant(x, y, 0, 0));
+	public void addEnemy(int x, int y, int enemyType) {
+		switch (enemyType){
+			case PLANT_BASIC:
+				enemies.add(new PlantBasic(x, y, 0));
+				break;
+			case PLANT_FAST:
+				enemies.add(new PlantFast(x, y, 1));
+				break;
+			case PLANT_WARRIOR:
+				enemies.add(new PlantWarrior(x, y, 2));
+				break;
+			case PLANT_BOSS:
+				enemies.add(new PlantBoss(x, y, 3));
+				break;
+		}
 	}
 
 	public void draw(Graphics g) {
-		for (Plant e : enemies)
+		for (APlant e : enemies)
 			drawEnemy(e, g);
 
 	}
 
-	private void drawEnemy(Plant e, Graphics g) {
-		g.drawImage(enemyImgs[0], (int) e.getX(), (int) e.getY(), null);
+	private void drawEnemy(APlant e, Graphics g) {
+		g.drawImage(enemyImgs[e.getEnemyType()], (int) e.getX(), (int) e.getY(), null);
 	}
 
 }
