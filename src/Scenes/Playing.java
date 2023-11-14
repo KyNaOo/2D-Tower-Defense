@@ -3,6 +3,7 @@ package src.Scenes;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import src.Entities.APlant;
 import src.help.LevelBuild;
 import src.help.LoadSave;
 import src.main.Game;
@@ -45,7 +46,48 @@ public class Playing extends GameScene implements SceneMethods {
 
 	public void update() {
 		enemyManager.update();
-		towerManager.update();	
+		towerManager.update();
+		if (isAllEnemyDead()){
+			if (isThereMoreWaves()){
+				// waveManages.startTimer();
+				/*
+				créer dans WaveManager :
+				private boolean waveStartTimer;
+				public void startTimer(){
+					waveStartTimer = true;
+				}
+				 */
+				if (isWaveTimerOver()){
+
+				}
+			}
+		}
+	}
+
+	private boolean isWaveTimerOver() {
+		return false;
+	}
+
+	private boolean isThereMoreWaves() {
+		/*return waveManager.isThereMoreWaves();
+		Créer ca dans WaveManager :
+		public boolean isThereMoreWaves(){
+			return waveIndex < waves.size();
+		}
+		*/
+		return false;
+	}
+
+	private boolean isAllEnemyDead() {
+		/*if (waveManager.isThereMoreEnemiesInWave()){
+			return false;
+		}*/
+		for (APlant plant : enemyManager.getEnemies()){
+			if (plant.isAlive()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void setSelectedTower(Tower selectedTower) {

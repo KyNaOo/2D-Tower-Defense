@@ -158,4 +158,7 @@ public class EnemyManager {
 		g.drawImage(enemyImgs[e.getEnemyType()], (int) e.getX(), (int) e.getY(), null);
 	}
 
+	public ArrayList<APlant> getEnemies() {
+		return enemies;
+	}
 }
