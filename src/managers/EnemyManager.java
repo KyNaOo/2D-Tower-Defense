@@ -1,5 +1,6 @@
 package src.managers;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class EnemyManager {
 	private BufferedImage[] enemyImgs;
 	private ArrayList<APlant> enemies = new ArrayList<>();
 	//private float speed = 0.5f;
+	private int HPbarWidth=20;
 
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
@@ -170,9 +172,19 @@ public class EnemyManager {
 	}
 
 	public void draw(Graphics g) {
-		for (APlant e : enemies)
+		for (APlant e : enemies){
 			drawEnemy(e, g);
+			drawHealthBar(e,g);
+		}
+	}
 
+	private void drawHealthBar(APlant e, Graphics g) {
+		g.setColor(Color.red);
+		g.fillRect((int)e.getX()+16-(getNewBarWidth(e)/2), (int)e.getY()-5, getNewBarWidth(e), 3);
+	}
+
+	private int getNewBarWidth(APlant e) {
+		return (int)(HPbarWidth*e.getHealthBarFloat());
 	}
 
 	private void drawEnemy(APlant e, Graphics g) {

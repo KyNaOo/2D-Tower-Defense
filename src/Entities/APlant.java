@@ -10,6 +10,7 @@ public abstract class APlant {
     private float x, y;
     private Rectangle bounds;
     private int health;
+    private int maxHealth;
     private int ID;
     private int enemyType;
     private int lastDir;
@@ -19,8 +20,9 @@ public abstract class APlant {
         return lastDir;
     }
 
-    protected void setStartHealth() {
+    private void setStartHealth() {
         health=src.help.Constants.Plants.GetStartHealth(enemyType);
+        maxHealth=health;
     }
 
     public APlant(float x, float y, int ID, int enemyType) {
@@ -30,6 +32,7 @@ public abstract class APlant {
         this.enemyType = enemyType;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
         lastDir = -1;
+        setStartHealth();
     }
 
     public void move(float speed, int dir) {
@@ -54,6 +57,9 @@ public abstract class APlant {
         this.y=y;
     }
 
+    public float getHealthBarFloat(){
+        return health/(float) maxHealth;
+    }
     public float getX() {
         return x;
     }
