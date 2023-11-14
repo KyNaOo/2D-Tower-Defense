@@ -1,6 +1,7 @@
 package src.Scenes;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import src.help.LevelBuild;
@@ -123,6 +124,12 @@ public class Playing extends GameScene implements SceneMethods {
 		return towerManager.getTowerAt(x, y);
 	}
 
+	public void keyPressed(KeyEvent e){
+		if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+			selectedTower=null;
+		}
+	}
+
 	@Override
 	public void mouseMoved(int x, int y) {
 		if (y >= 640)
@@ -166,4 +173,6 @@ public class Playing extends GameScene implements SceneMethods {
 	public TowerManager getTowerManager() {
 		return towerManager;
 	}
+
+
 }

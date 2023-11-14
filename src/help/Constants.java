@@ -21,6 +21,50 @@ public class Constants {
 			}
 			return "";
 		}
+
+        public static float GetStartDmg(int towerType) {
+            	switch (towerType) {
+			case CANNON:
+				return 40;
+			case ARCHER:
+				return 30;
+			case WIZARD:
+				return 35;
+            case LASER:
+				return 50;
+			}
+            return 0;
+        }
+
+        public static float GetDefaultRange(int towerType) {
+             	switch (towerType) {
+			case CANNON:
+				return 100;
+			case ARCHER:
+				return 150;
+			case WIZARD:
+				return 125;
+            case LASER:
+				return 180;
+			}
+            return 0;
+            
+        }
+
+        public static float GetDefaultCooldown(int towerType) {
+             	switch (towerType) {
+			case CANNON:
+				return 10;
+			case ARCHER:
+				return 5;
+			case WIZARD:
+				return 7;
+            case LASER:
+				return 6;
+			}
+            return 0;
+            
+        }
 	}
     public static class Direction{
         public static final int LEFT = 0;
@@ -49,6 +93,20 @@ public class Constants {
 			}
 			return 0;
 		}
+
+        public static int GetStartHealth(int enemyType){
+            	switch (enemyType) {
+			case PLANT_BASIC:
+				return 100;
+			case PLANT_BOSS:
+				return 500;
+			case PLANT_WARRIOR:
+				return 300;
+			case PLANT_FAST:
+				return 85;
+			}
+            return 0;
+        }
     }
     public static class Tiles{
         public static final int WATER_TILE = 0;

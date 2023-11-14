@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import static src.help.Constants.Direction.*;
 
+
 public abstract class APlant {
 
     private float x, y;
@@ -16,6 +17,10 @@ public abstract class APlant {
 
     public int getLastDir() {
         return lastDir;
+    }
+
+    protected void setStartHealth() {
+        health=src.help.Constants.Plants.GetStartHealth(enemyType);
     }
 
     public APlant(float x, float y, int ID, int enemyType) {
