@@ -12,6 +12,7 @@ public abstract class APlant {
     private int ID;
     private int enemyType;
     private int lastDir;
+    private boolean alive = true;
 
     public int getLastDir() {
         return lastDir;
@@ -72,4 +73,8 @@ public abstract class APlant {
         return enemyType;
     }
 
+    public void kill() {
+        alive = false;
+        health = 0;
+    }
 }
