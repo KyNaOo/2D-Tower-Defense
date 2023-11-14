@@ -11,6 +11,7 @@ import src.main.Game;
 import src.managers.EnemyManager;
 import src.managers.TileManager;
 import src.managers.TowerManager;
+import src.managers.WaveManager;
 import src.objects.Tower;
 import src.ui.ActionBar;
 import static src.help.Constants.Tiles.STONE_TILE;
@@ -21,6 +22,7 @@ public class Playing extends GameScene implements SceneMethods {
 	private ActionBar actionBar;
 	private TileManager tileManager;
 	private int mouseX, mouseY;
+	private WaveManager waveManager;
 	private EnemyManager enemyManager;
 	private TowerManager towerManager;
 	private Tower selectedTower;
@@ -34,7 +36,12 @@ public class Playing extends GameScene implements SceneMethods {
 
 		enemyManager = new EnemyManager(this);
 		towerManager = new TowerManager(this);
+		waveManager = new WaveManager(this);
 
+	}
+
+	public WaveManager getWaveManager() {
+		return waveManager;
 	}
 
 	private void loadDefaultLevel() {

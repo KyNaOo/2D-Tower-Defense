@@ -39,9 +39,30 @@ public class EnemyManager {
 	}
 
 	public void update() {
+		updateWaveManager();
+		if (isTimeForNewEnemy()){
+			spawnEnemy();
+		}
 		for (APlant e : enemies){
 			updateEnemyMove(e);
 		}
+	}
+
+	private void updateWaveManager() {
+		playing.getWaveManager().update();
+	}
+
+	private void spawnEnemy() {
+		addEnemy(playing.getWaveManager().getNextEnemy());
+	}
+
+	private boolean isTimeForNewEnemy() {
+		if (playing.getWaveManager().isTimeForNewEnemy()){
+			if (playing.getWaveManager().isThereMoreEnemiesInWave()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void updateEnemyMove(APlant e) {

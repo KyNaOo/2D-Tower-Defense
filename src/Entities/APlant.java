@@ -82,4 +82,7 @@ public abstract class APlant {
         alive = false;
         health = 0;
     }
+    public boolean isAlive() {
+        return alive;
+    }
 }
