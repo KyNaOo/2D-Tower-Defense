@@ -46,7 +46,9 @@ public class EnemyManager {
 			spawnEnemy();
 		}
 		for (APlant e : enemies){
-			updateEnemyMove(e);
+			if(e.isAlive()){
+				updateEnemyMove(e);
+			}	
 		}
 	}
 
@@ -173,8 +175,10 @@ public class EnemyManager {
 
 	public void draw(Graphics g) {
 		for (APlant e : enemies){
-			drawEnemy(e, g);
-			drawHealthBar(e,g);
+			if(e.isAlive()){
+				drawEnemy(e, g);
+				drawHealthBar(e,g);
+			}	
 		}
 	}
 

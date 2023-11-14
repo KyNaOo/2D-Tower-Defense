@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import src.help.LoadSave;
 import src.objects.Tower;
+import src.Entities.APlant;
 import src.Scenes.Playing;
 
 public class TowerManager {
@@ -32,7 +33,22 @@ public class TowerManager {
 	}
 
 	public void update() {
+		attackEnemyIfClose();
 	}
+
+	private void attackEnemyIfClose() {
+		for(Tower t: towers){
+			for(APlant e : playing.getEnemyManager().getEnemies()){
+				if(e.isAlive())
+				if(isEnemyInRange(t, e)){
+					e.hurt(1);
+				}else{
+					
+				}
+			}
+		}
+	}
+
 
 	public void draw(Graphics g) {
 		for (Tower t : towers)
@@ -50,5 +66,20 @@ public class TowerManager {
 					return t;
 		return null;
 	}
+
+	private boolean isEnemyInRange(Tower t, APlant e) {
+
+		int range = GetHypoDistance(t.getX(), t.getY(), e.getX(), e.getY());
+		return range< t.getRange();
+		
+	}
+
+	private int GetHypoDistance(float x1, float y1, float x2, float y2){
+		float xDiff=Math.abs(x1-x2);
+		float yDiff=Math.abs(y1-y2);
+
+		return (int)Math.hypot(xDiff, yDiff);
+	}
+
 
 }

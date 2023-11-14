@@ -91,4 +91,11 @@ public abstract class APlant {
     public boolean isAlive() {
         return alive;
     }
+
+    public void hurt(int dmg){
+        this.health -= dmg;
+        if(health<=0){
+            alive=false;
+        }
+    }
 }
