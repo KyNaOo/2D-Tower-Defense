@@ -55,41 +55,49 @@ public class Playing extends GameScene implements SceneMethods {
 	public void update() {
 		enemyManager.update();
 		towerManager.update();
-		if (isAllEnemyDead()){
+		waveManager.update();
+		if (isTimeForNewEnemy()){
+			spawnEnemy();
+		}
+		if (isAllEnemiesDead()){
 			if (isThereMoreWaves()){
-				// waveManages.startTimer();
-				/*
-				créer dans WaveManager :
-				private boolean waveStartTimer;
-				public void startTimer(){
-					waveStartTimer = true;
-				}
-				 */
+				waveManager.startWaveTimer();
 				if (isWaveTimerOver()){
-
+					waveManager.increaseWaveIndex();
+					enemyManager.getEnemies().clear();
+					waveManager.resetEnemyIndex();
 				}
+			}
+			if (isTimeForNewEnemy()){
+				spawnEnemy();
 			}
 		}
 	}
+	private void spawnEnemy() {
+		enemyManager.spawnEnemy(waveManager.getNextEnemy());
+	}
+
+	private boolean isTimeForNewEnemy() {
+		if (waveManager.isTimeForNewEnemy()){
+			if (waveManager.isThereMoreEnemiesInWave()){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	private boolean isWaveTimerOver() {
-		return false;
+		return waveManager.isWaveTimerOver();
 	}
 
 	private boolean isThereMoreWaves() {
-		/*return waveManager.isThereMoreWaves();
-		Créer ca dans WaveManager :
-		public boolean isThereMoreWaves(){
-			return waveIndex < waves.size();
-		}
-		*/
-		return false;
+		return waveManager.isThereMoreWaves();
 	}
 
-	private boolean isAllEnemyDead() {
-		/*if (waveManager.isThereMoreEnemiesInWave()){
+	private boolean isAllEnemiesDead() {
+		if (waveManager.isThereMoreEnemiesInWave()){
 			return false;
-		}*/
+		}
 		for (APlant plant : enemyManager.getEnemies()){
 			if (plant.isAlive()){
 				return false;
@@ -114,8 +122,13 @@ public class Playing extends GameScene implements SceneMethods {
 		actionBar.draw(g);
 		enemyManager.draw(g);
 		towerManager.draw(g);
+		drawWaveInfos(g);
 		drawSelectedTower(g);
 
+
+	}
+
+	private void drawWaveInfos(Graphics g) {
 	}
 
 	private void drawSelectedTower(Graphics g) {
@@ -223,5 +236,7 @@ public class Playing extends GameScene implements SceneMethods {
 		return towerManager;
 	}
 
-
+	public EnemyManager getEnemyManager() {
+		return enemyManager;
+	}
 }
