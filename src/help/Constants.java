@@ -1,6 +1,27 @@
 package src.help;
 
 public class Constants {
+
+    public static class Towers {
+		public static final int ARCHER = 0;
+		public static final int WIZARD = 1;
+		public static final int CANNON = 2;
+        public static final int LASER = 3;
+
+		public static String GetName(int towerType) {
+			switch (towerType) {
+			case CANNON:
+				return "Cannon";
+			case ARCHER:
+				return "Archer";
+			case WIZARD:
+				return "Wizard";
+            case LASER:
+				return "Laser";
+			}
+			return "";
+		}
+	}
     public static class Direction{
         public static final int LEFT = 0;
         public static final int UP = 1;

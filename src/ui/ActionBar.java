@@ -4,9 +4,11 @@ import static src.main.GameStates.MENU;
 import static src.main.GameStates.SetGameState;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import src.Scenes.Playing;
+import src.help.Constants.Towers;
 import src.objects.Tower;
 
 public class ActionBar extends Bar {
@@ -16,6 +18,7 @@ public class ActionBar extends Bar {
 
 	private MyButton[] towerButtons;
 	private Tower selectedTower;
+	private Tower displayedTower;
 
 	public ActionBar(int x, int y, int width, int height, Playing playing) {
 		super(x, y, width, height);
@@ -58,6 +61,8 @@ public class ActionBar extends Bar {
 
 		// Buttons
 		drawButtons(g);
+
+		drawDisplayedTower(g);
 	}
 
 	public void mouseClicked(int x, int y) {
@@ -109,4 +114,24 @@ public class ActionBar extends Bar {
 			b.resetBooleans();
 
 	}
+
+	private void drawDisplayedTower(Graphics g) {
+		if (displayedTower != null) {
+			g.setColor(Color.gray);
+			g.fillRect(410, 645, 220, 85);
+			g.setColor(Color.black);
+			g.drawRect(410, 645, 220, 85);
+			g.drawRect(420, 650, 50, 50);
+			g.drawImage(playing.getTowerManager().getTowerImgs()[displayedTower.getTowerType()], 420, 650, 50, 50, null);
+			g.setFont(new Font("LucidaSans", Font.BOLD, 15));
+			g.drawString("" + Towers.GetName(displayedTower.getTowerType()), 490, 660);
+			g.drawString("ID: " + displayedTower.getId(), 490, 675);
+		}
+
+	}
+
+	public void displayTower(Tower t) {
+		displayedTower = t;
+	}
+
 }

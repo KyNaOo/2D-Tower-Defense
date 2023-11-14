@@ -43,4 +43,12 @@ public class TowerManager {
 		return towerImgs;
 	}
 
+    public Tower getTowerAt(int x, int y) {
+		for (Tower t : towers)
+			if (t.getX() == x)
+				if (t.getY() == y)
+					return t;
+		return null;
+	}
+
 }

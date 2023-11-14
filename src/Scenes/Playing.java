@@ -94,18 +94,33 @@ public class Playing extends GameScene implements SceneMethods {
 		if (y >= 640)
 		actionBar.mouseClicked(x, y);
 	else {
-		if (selectedTower != null)
+		// Above 640y
+		if (selectedTower != null) {
+			// Trying to place a tower
 			if (isTileStone(mouseX, mouseY)) {
-				towerManager.addTower(selectedTower, mouseX, mouseY);
-				selectedTower = null;
+				if (getTowerAt(mouseX, mouseY) == null) {
+					towerManager.addTower(selectedTower, mouseX, mouseY);
+					selectedTower = null;
+				}
 			}
+		} else {
+			// Not trying to place a tower
+			// Checking if a tower exists at x,y
+			Tower t = getTowerAt(mouseX, mouseY);
+			actionBar.displayTower(t);
+		}
 	}
+
 	}
 
 	private boolean isTileStone(int x, int y) {
 		int id = lvl[y / 32][x / 32];
 		int tileType = game.getTileManager().getTile(id).getTileType();
 		return tileType == STONE_TILE;
+	}
+
+	private Tower getTowerAt(int x, int y) {
+		return towerManager.getTowerAt(x, y);
 	}
 
 	@Override
