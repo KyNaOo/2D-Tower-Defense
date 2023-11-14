@@ -27,8 +27,7 @@ public class TileManager {
 		tiles.add(WATER = new Tile(getSprite(0, 0), id++, WATER_TILE));
 		tiles.add(ROAD = new Tile(getSprite(8, 0), id++, ROAD_TILE));
 		tiles.add(STONE = new Tile(getSprite(6,2), id++, STONE_TILE));
-		tiles.add(STONE = new Tile(getSprite(7,2), id++, START_TILE));
-		tiles.add(STONE = new Tile(getSprite(8,2), id++, END_TILE));
+		tiles.add(STONE = new Tile(getSprite(2,2), id++, END_TILE));
 
 
 	}

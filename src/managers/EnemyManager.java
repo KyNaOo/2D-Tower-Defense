@@ -22,10 +22,10 @@ public class EnemyManager {
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[4];
-		addEnemy(0 * 32, 2 * 32, PLANT_BASIC);
-		addEnemy(1 * 32, 2 * 32, PLANT_FAST);
-		addEnemy(2 * 32, 2 * 32, PLANT_WARRIOR);
-		addEnemy(3 * 32, 2 * 32, PLANT_BOSS);
+		addEnemy(PLANT_BASIC);
+		addEnemy(PLANT_FAST);
+		addEnemy(PLANT_WARRIOR);
+		addEnemy(PLANT_BOSS);
 		loadEnemyImgs();
 	}
 
@@ -53,7 +53,7 @@ public class EnemyManager {
 		if (getTileType(newX, newY)== ROAD_TILE){
 			e.move(speed, e.getLastDir());
 		} else if (isAtEnd(e)){
-
+			System.out.println("Lives lost");
 		} else {
 			setNewDirectionAndMove(e);
 		}
@@ -64,6 +64,9 @@ public class EnemyManager {
 		int xCord = (int) (e.getX()/32);
 		int yCord = (int) (e.getY()/32);
 		fixEnemeyOffsetTile(e, dir, xCord, yCord);
+		if (isAtEnd(e)){
+			return;
+		}
 		if (dir == LEFT || dir == RIGHT){
 			int newY = (int) (e.getY() + getSpeedAndHeight(UP));
 			if (getTileType((int)e.getX(), newY) == ROAD_TILE){
@@ -83,16 +86,6 @@ public class EnemyManager {
 
 	private void fixEnemeyOffsetTile(APlant e, int dir, int xCord, int yCord) {
 		switch (dir){
-			/*case LEFT:
-				if (xCord >0){
-					xCord--;
-				}
-				break;
-			case UP:
-				if (yCord >0){
-					yCord--;
-				}
-				break;*/
 			case RIGHT:
 				if (xCord<19){
 					xCord++;
@@ -108,6 +101,9 @@ public class EnemyManager {
 	}
 
 	private boolean isAtEnd(APlant e) {
+		if (e.getY() == 6*32)
+			if (e.getX() == 18*32)
+				return true;
 		return false;
 	}
 
@@ -133,7 +129,9 @@ public class EnemyManager {
 		return 0;
 	}
 
-	public void addEnemy(int x, int y, int enemyType) {
+	public void addEnemy(int enemyType) {
+		int x = 0;
+		int y = 64;
 		switch (enemyType){
 			case PLANT_BASIC:
 				enemies.add(new PlantBasic(x, y, 0));
