@@ -116,5 +116,25 @@ public class Constants {
         public static final int END_TILE = 4;
     }
 
+    public static class Projectiles{
+        public static final int ARROW=0;
+        public static final int BOMB=1;
+        public static final int CHAINS=2;
+        public static final int LASER=3;
+
+        public static float GetSpeed(int type){
+            switch (type) {
+                case ARROW:
+                     return 3f;
+                case BOMB:
+                     return 1f;
+                case CHAINS:
+                     return 2f;
+                case LASER:
+                     return 4f;
+            }
+            return 0f;
+        }
+    }
     
 }
