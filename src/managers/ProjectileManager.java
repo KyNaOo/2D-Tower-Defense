@@ -84,7 +84,10 @@ public class ProjectileManager {
 
 	private boolean isProjHittingEnemy(Projectile p) {
 		for (APlant e : playing.getEnemyManager().getEnemies()) {
-			if (e.isAlive())
+
+			if (e.isAlive()){
+                
+            }
 				if (e.getBounds().contains(p.getPos())) {
 					e.hurt(p.getDmg());
 					if(p.getProjectileType() == CHAINS)

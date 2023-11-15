@@ -8,6 +8,20 @@ public class Constants {
 		public static final int CANNON = 2;
         public static final int LASER = 3;
 
+		public static int GetTowerCost(int towerType){
+			switch (towerType) {
+				case CANNON:
+					return 50;
+				case ARCHER:
+					return 30;
+				case WIZARD:
+					return 45;
+				case LASER:
+					return 75;
+			}
+			return 0;
+		}
+
 		public static String GetName(int towerType) {
 			switch (towerType) {
 			case CANNON:
@@ -79,6 +93,19 @@ public class Constants {
         public static final int PLANT_FAST = 1;
         public static final int PLANT_WARRIOR = 2;
         public static final int PLANT_BOSS = 3;
+		public static int GetReward(int enemyType){
+			switch (enemyType) {
+				case PLANT_BASIC:
+					return 5;
+				case PLANT_BOSS:
+					return 25;
+				case PLANT_WARRIOR:
+					return 15;
+				case PLANT_FAST:
+					return 3;
+			}
+			return 0;
+		}
 
         public static float GetSpeed(int enemyType) {
 			switch (enemyType) {
