@@ -110,13 +110,13 @@ public class Constants {
         public static float GetSpeed(int enemyType) {
 			switch (enemyType) {
 			case PLANT_BASIC:
-				return 0.5f;
+				return 0.7f;
 			case PLANT_BOSS:
-				return 0.5f;
+				return 1f;
 			case PLANT_WARRIOR:
 				return 0.3f;
 			case PLANT_FAST:
-				return 1f;
+				return 2f;
 			}
 			return 0;
 		}
@@ -124,13 +124,13 @@ public class Constants {
         public static int GetStartHealth(int enemyType){
             	switch (enemyType) {
 			case PLANT_BASIC:
-				return 100;
+				return 300;
 			case PLANT_BOSS:
-				return 500;
+				return 1500;
 			case PLANT_WARRIOR:
-				return 1000;
+				return 2000;
 			case PLANT_FAST:
-				return 85;
+				return 300;
 			}
             return 0;
         }

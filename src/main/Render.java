@@ -30,7 +30,9 @@ public class Render {
 			game.getSettings().render(g);
 
 			break;
-
+		case GAME_OVER:
+			game.getGameOver().render(g);
+			break;
 		}
 
 	}

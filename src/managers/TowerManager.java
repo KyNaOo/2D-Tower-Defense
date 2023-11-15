@@ -83,7 +83,6 @@ public class TowerManager {
 
         return (int) Math.hypot(xDiff, yDiff);
     }
-
 	public void upgradeTower(Tower displayedTower) {
 		for(Tower t : towers)
 			if(t.getId() == displayedTower.getId())
@@ -96,5 +95,10 @@ public class TowerManager {
 				towers.remove(i);
 	}
 
+
+    public void reset(){
+        towers.clear();
+        towerAmount = 0;
+    }
 
 }
