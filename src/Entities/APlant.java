@@ -51,6 +51,8 @@ public abstract class APlant {
                 this.y+=speed;
                 break;
         }
+
+        updateHitbox();
     }
     public void setPos(int x, int y){
         this.x = x;
@@ -98,4 +100,9 @@ public abstract class APlant {
             alive=false;
         }
     }
+
+    private void updateHitbox() {
+		bounds.x = (int) x;
+		bounds.y = (int) y;
+	}
 }

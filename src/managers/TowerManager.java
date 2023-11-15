@@ -33,20 +33,26 @@ public class TowerManager {
 	}
 
 	public void update() {
-		attackEnemyIfClose();
+		for(Tower t : towers){
+			t.update();
+			attackEnemyIfClose(t);
+		}
+		
 	}
 
-	private void attackEnemyIfClose() {
-		for(Tower t: towers){
-			for(APlant e : playing.getEnemyManager().getEnemies()){
-				if(e.isAlive())
-				if(isEnemyInRange(t, e)){
-					e.hurt(1);
-				}else{
-					
+	private void attackEnemyIfClose(Tower t) {
+		for (APlant e : playing.getEnemyManager().getEnemies()) {
+			if (e.isAlive())
+				if (isEnemyInRange(t, e)) {
+					if (t.isCooldownOver()) {
+						playing.shootEnemy(t, e);
+						t.resetCooldown();
+					}
+				} else {
+					// we do nothing
 				}
-			}
 		}
+
 	}
 
 
@@ -68,10 +74,8 @@ public class TowerManager {
 	}
 
 	private boolean isEnemyInRange(Tower t, APlant e) {
-
 		int range = GetHypoDistance(t.getX(), t.getY(), e.getX(), e.getY());
-		return range< t.getRange();
-		
+		return range < t.getRange();
 	}
 
 	private int GetHypoDistance(float x1, float y1, float x2, float y2){
