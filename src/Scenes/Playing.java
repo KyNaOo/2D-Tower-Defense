@@ -3,6 +3,7 @@ package src.Scenes;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import src.Entities.APlant;
 import src.help.Constants;
@@ -10,6 +11,7 @@ import src.help.LevelBuild;
 import src.help.LoadSave;
 import src.main.Game;
 import src.managers.EnemyManager;
+import src.managers.ProjectileManager;
 import src.managers.TileManager;
 import src.managers.TowerManager;
 import src.managers.WaveManager;
@@ -28,6 +30,7 @@ public class Playing extends GameScene implements SceneMethods {
 	private TowerManager towerManager;
 	private Tower selectedTower;
 	private int goldTick = 0;
+	private ProjectileManager projectileManager;
 
 	public Playing(Game game) {
 		super(game);
@@ -39,6 +42,7 @@ public class Playing extends GameScene implements SceneMethods {
 		enemyManager = new EnemyManager(this);
 		towerManager = new TowerManager(this);
 		waveManager = new WaveManager(this);
+		projectileManager = new  ProjectileManager(this);
 
 	}
 
@@ -55,9 +59,11 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 
 	public void update() {
+		//updateTick();
 		enemyManager.update();
 		towerManager.update();
 		waveManager.update();
+		projectileManager.update();
 		goldTick++;
 		if (goldTick % (60) == 0 ){
 			actionBar.addGold(1);
@@ -130,6 +136,7 @@ public class Playing extends GameScene implements SceneMethods {
 		towerManager.draw(g);
 		drawWaveInfos(g);
 		drawSelectedTower(g);
+		projectileManager.draw(g);
 
 
 	}
@@ -253,6 +260,11 @@ public class Playing extends GameScene implements SceneMethods {
 
 	public EnemyManager getEnemyManager() {
 		return enemyManager;
+	}
+
+	public void shootEnemy(Tower t, APlant e) {
+		projectileManager.newProjectile(t, e);
+
 	}
 
 }

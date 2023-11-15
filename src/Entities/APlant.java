@@ -56,6 +56,8 @@ public abstract class APlant {
                 this.y+=speed;
                 break;
         }
+
+        updateHitbox();
     }
     public void setPos(int x, int y){
         this.x = x;
@@ -104,4 +106,9 @@ public abstract class APlant {
             enemyManager.rewardPlayer(enemyType);
         }
     }
+
+    private void updateHitbox() {
+		bounds.x = (int) x;
+		bounds.y = (int) y;
+	}
 }
