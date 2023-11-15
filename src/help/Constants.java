@@ -41,11 +41,11 @@ public class Constants {
 			case CANNON:
 				return 100;
 			case ARCHER:
-				return 30;
-			case WIZARD:
-				return 35;
-            case LASER:
 				return 50;
+			case WIZARD:
+				return 50;
+            case LASER:
+				return 60;
 			}
             return 0;
         }
@@ -68,13 +68,13 @@ public class Constants {
         public static float GetDefaultCooldown(int towerType) {
              	switch (towerType) {
 			case CANNON:
-				return 100;
+				return 120;
 			case ARCHER:
-				return 5;
+				return 50;
 			case WIZARD:
-				return 7;
+				return 50;
             case LASER:
-				return 6;
+				return 80;
 			}
             return 0;
             

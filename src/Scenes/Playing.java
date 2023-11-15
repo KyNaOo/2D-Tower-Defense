@@ -267,4 +267,13 @@ public class Playing extends GameScene implements SceneMethods {
 
 	}
 
+	public void removeTower(Tower displayedTower) {
+		towerManager.removeTower(displayedTower);
+	}
+
+	public void upgradeTower(Tower displayedTower) {
+		towerManager.upgradeTower(displayedTower);
+
+	}
+
 }

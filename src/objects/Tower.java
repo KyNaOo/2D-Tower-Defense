@@ -1,19 +1,51 @@
 package src.objects;
 
+import static src.help.Constants.Towers.ARCHER;
+import static src.help.Constants.Towers.CANNON;
+import static src.help.Constants.Towers.LASER;
+import static src.help.Constants.Towers.WIZARD;
+
 public class Tower {
 
 	private int x, y, id, towerType, cdTick, dmg;
 	private float range, cooldown;
+
+	private int tier;
 
 	public Tower(int x, int y, int id, int towerType) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
 		this.towerType = towerType;
+		tier = 1;
 		setDefaultDmg();
 		setDefaultRange();
 		setDefaultCooldown();
 	} 	
+
+		public void upgradeTower() {
+		this.tier++;
+
+		switch (towerType) {
+		case ARCHER:
+			dmg += 2;
+			range += 20;
+			cooldown -= 5;
+			break;
+		case CANNON:
+			dmg += 5;
+			range += 20;
+			cooldown -= 15;
+			break;
+		case WIZARD:
+			range += 20;
+			cooldown -= 10;
+			break;
+		case LASER :
+			range += 20;
+			cooldown -= 10;
+		}
+	}
 
 	public void update() {
 		cdTick++;
@@ -85,6 +117,10 @@ public class Tower {
 
 	public float getCooldown() {
 		return cooldown;
+	}
+
+	public int getTier() {
+		return tier;
 	}
 
 }
