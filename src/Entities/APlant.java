@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import static src.help.Constants.Direction.*;
 
 
-public abstract class APlant {
+public abstract class APlant implements IEnemy{
 
     private float x, y;
     private Rectangle bounds;
