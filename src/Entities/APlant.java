@@ -110,7 +110,7 @@ public abstract class APlant {
 
     public void hurt(int dmg){
         this.health -= dmg;
-        if(health<=0){
+        if(health<=0 && isAlive()){
             alive=false;
             enemyManager.rewardPlayer(enemyType);
         }

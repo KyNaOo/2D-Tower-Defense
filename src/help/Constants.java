@@ -74,7 +74,7 @@ public class Constants {
 			case WIZARD:
 				return 50;
             case LASER:
-				return 80;
+				return 5;
 			}
             return 0;
             
