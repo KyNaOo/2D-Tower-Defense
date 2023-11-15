@@ -25,10 +25,6 @@ public class EnemyManager {
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[4];
-		addEnemy(PLANT_BASIC);
-		addEnemy(PLANT_FAST);
-		addEnemy(PLANT_WARRIOR);
-		addEnemy(PLANT_BOSS);
 		loadEnemyImgs();
 	}
 
@@ -60,6 +56,7 @@ public class EnemyManager {
 			e.move(GetSpeed(e.getEnemyType()), e.getLastDir());
 		} else if (isAtEnd(e)){
 			e.kill();
+			playing.removeOneLife();
 		} else {
 			setNewDirectionAndMove(e);
 		}
@@ -194,5 +191,8 @@ public class EnemyManager {
 
 	public void rewardPlayer(int enemyType) {
 		playing.rewardPlayer(enemyType);
+	}
+	public void reset(){
+		enemies.clear();
 	}
 }

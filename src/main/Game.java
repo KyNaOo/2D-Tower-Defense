@@ -2,6 +2,7 @@ package src.main;
 
 import javax.swing.JFrame;
 
+import src.Scenes.GameOver;
 import src.help.LevelBuild;
 import src.main.GameScreen;
 import src.main.Render;
@@ -14,6 +15,7 @@ public class Game extends JFrame implements Runnable {
 
 	private GameScreen gameScreen;
 	private Thread gameThread;
+	private GameOver gameOver;
 
 	private final double FPS_SET = 120.0;
 	private final double UPS_SET = 60.0;
@@ -50,6 +52,10 @@ public class Game extends JFrame implements Runnable {
 
 	}
 
+	public GameOver getGameOver() {
+		return gameOver;
+	}
+
 	private void initClasses() {
 		tileManager = new TileManager();
 		render = new Render(this);
@@ -57,8 +63,7 @@ public class Game extends JFrame implements Runnable {
 		menu = new Menu(this);
 		playing = new Playing(this);
 		settings = new Settings(this);
-		//editing = new Editing(this);
-
+		gameOver = new GameOver(this);
 	}
 
 	private void start() {
@@ -159,5 +164,6 @@ public class Game extends JFrame implements Runnable {
 	public TileManager getTileManager() {
 		return tileManager;
 	}
+
 
 }

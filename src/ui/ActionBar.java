@@ -1,8 +1,5 @@
 package src.ui;
 
-import static src.main.GameStates.MENU;
-import static src.main.GameStates.SetGameState;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,6 +9,8 @@ import src.Scenes.Playing;
 import src.help.Constants;
 import src.help.Constants.Towers;
 import src.objects.Tower;
+
+import static src.main.GameStates.*;
 
 public class ActionBar extends Bar {
 
@@ -25,7 +24,17 @@ public class ActionBar extends Bar {
 	private boolean showTowerCost;
 	private int towerCostType;
 	private int gold = 100;
+	private int lives = 25;
 
+	public int getLives() {
+		return lives;
+	}
+	public void removeOneLife(){
+		lives--;
+		if (lives<=0){
+			SetGameState(GAME_OVER);
+		}
+	}
 
 	public ActionBar(int x, int y, int width, int height, Playing playing) {
 		super(x, y, width, height);
@@ -77,6 +86,8 @@ public class ActionBar extends Bar {
 		if (showTowerCost){
 			drawTowerCost(g);
 		}
+		g.setColor(Color.black);
+		g.drawString("Lives: "+lives, 1, 725);
 	}
 
 	private void drawTowerCost(Graphics g) {
@@ -205,5 +216,14 @@ public class ActionBar extends Bar {
 
 	public void addGold(int getReward) {
 		this.gold+= getReward;
+	}
+
+	public void resetEveryThing() {
+		lives = 25;
+		towerCostType = 0;
+		showTowerCost = false;
+		gold = 100;
+		selectedTower = null;
+		displayedTower = null;
 	}
 }

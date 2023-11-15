@@ -44,6 +44,7 @@ public class Playing extends GameScene implements SceneMethods {
 		waveManager = new WaveManager(this);
 		projectileManager = new  ProjectileManager(this);
 
+
 	}
 
 	public WaveManager getWaveManager() {
@@ -267,4 +268,19 @@ public class Playing extends GameScene implements SceneMethods {
 
 	}
 
+	public void removeOneLife() {
+		actionBar.removeOneLife();
+	}
+
+	public void resetEveryThing() {
+		actionBar.resetEveryThing();
+		waveManager.reset();
+		enemyManager.reset();
+		towerManager.reset();
+		projectileManager.reset();
+		mouseX = 0;
+		mouseY = 0;
+		selectedTower = null;
+		goldTick = 0;
+	}
 }

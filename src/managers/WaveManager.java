@@ -21,8 +21,10 @@ public class WaveManager {
     }
 
     private void createWaves() {
-        waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0,0,0,0,1))));
-        waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(3,1,3,2,0,1,0,1,1,0))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(0,1,1,2,1,0,2,1,2,1,2,0,0,1,1,1,1,0,0,1,0))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(2,2,2,2,0,1,1,1,1,0,3,3,1,1,1))));
+        waves.add(new Wave(new ArrayList<>(Arrays.asList(3,2,2,3,3,3,2,2,1,1,1,1,1,0,0,0,1,0,2,3,3,3,2,2,0,1,1,1))));
     }
 
     public ArrayList<Wave> getWaves() {
@@ -80,5 +82,15 @@ public class WaveManager {
 
     public boolean isWaveTimerStarted() {
         return waveStartTimer;
+    }
+    public void reset(){
+        waves.clear();
+        createWaves();
+        enemyIndex = 0;
+        waveIndex = 0;
+        waveStartTimer = false;
+        waveTickTimerOver = false;
+        waveTick = 0;
+        enemySpawnTick = enemySpawTickLimit;
     }
 }
