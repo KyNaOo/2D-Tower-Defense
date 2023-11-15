@@ -101,7 +101,7 @@ public class ActionBar extends Bar {
 		g.drawString(getTowerCostName(), 355, 670);
 		g.drawString("Cost: " + getTowerCostCost() + "g", 355, 695);
 
-		// Show this if player lacks gold for the selected tower.
+	
 		if (isTowerCostMoreThanCurrentGold()) {
 			g.setColor(Color.RED);
 			g.drawString("Can't Afford", 270, 725);

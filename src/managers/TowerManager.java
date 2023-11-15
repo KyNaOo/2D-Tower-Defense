@@ -48,9 +48,7 @@ public class TowerManager {
 						playing.shootEnemy(t, e);
 						t.resetCooldown();
 					}
-				} else {
-					// we do nothing
-				}
+				} 
 		}
 
 	}

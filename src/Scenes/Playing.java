@@ -60,7 +60,7 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 
 	public void update() {
-		//updateTick();
+
 		enemyManager.update();
 		towerManager.update();
 		waveManager.update();
@@ -131,7 +131,7 @@ public class Playing extends GameScene implements SceneMethods {
 				g.drawImage(tileManager.getSprite(id), x * 32, y * 32, null);
 			}
 		}
-		//drawLevel(g);
+
 		actionBar.draw(g);
 		enemyManager.draw(g);
 		towerManager.draw(g);
@@ -150,20 +150,6 @@ public class Playing extends GameScene implements SceneMethods {
 			g.drawImage(towerManager.getTowerImgs()[selectedTower.getTowerType()], mouseX, mouseY, null);
 	}
 
-	/*private void drawLevel(Graphics g) {
-
-		for (int y = 0; y < lvl.length; y++) {
-			for (int x = 0; x < lvl[y].length; x++) {
-				int id = lvl[y][x];
-				g.drawImage(getSprite(id), x * 32, y * 32, null);
-			}
-		}
-	}*/
-
-	/*private BufferedImage getSprite(int spriteID) {
-		return game.getTileManager().getSprite(spriteID);
-	}*/
-	
 
 	@Override
 	public void mouseClicked(int x, int y) {
@@ -171,9 +157,9 @@ public class Playing extends GameScene implements SceneMethods {
 		if (y >= 640)
 		actionBar.mouseClicked(x, y);
 	else {
-		// Above 640y
+
 		if (selectedTower != null) {
-			// Trying to place a tower
+	
 			if (isTileStone(mouseX, mouseY)) {
 				if (getTowerAt(mouseX, mouseY) == null) {
 					towerManager.addTower(selectedTower, mouseX, mouseY);
@@ -183,8 +169,7 @@ public class Playing extends GameScene implements SceneMethods {
 				}
 			}
 		} else {
-			// Not trying to place a tower
-			// Checking if a tower exists at x,y
+		
 			Tower t = getTowerAt(mouseX, mouseY);
 			actionBar.displayTower(t);
 		}

@@ -42,17 +42,12 @@ public class BottomBar {
 		int xOffset = (int) (w * 1.1f);
 
 		int i = 0;
-		/*for (Tile tile : playing.getTileManger().tiles) {
-			tileButtons.add(new MyButton(tile.getName(), xStart + xOffset * i, yStart, w, h, i));
-			i++;
-		}*/
 
 	}
 
 	private void drawButtons(Graphics g) {
 		bMenu.draw(g);
 
-		//drawTileButtons(g);
 		drawSelectedTile(g);
 
 	}
@@ -67,34 +62,6 @@ public class BottomBar {
 
 	}
 
-	/*private void drawTileButtons(Graphics g) {
-		for (MyButton b : tileButtons) {
-
-			// Sprite
-			g.drawImage(getButtImg(b.getId()), b.x, b.y, b.width, b.height, null);
-
-			// MouseOver
-			if (b.isMouseOver())
-				g.setColor(Color.white);
-			else
-				g.setColor(Color.BLACK);
-
-			// Border
-			g.drawRect(b.x, b.y, b.width, b.height);
-
-			// MousePressed
-			if (b.isMousePressed()) {
-				g.drawRect(b.x + 1, b.y + 1, b.width - 2, b.height - 2);
-				g.drawRect(b.x + 2, b.y + 2, b.width - 4, b.height - 4);
-			}
-
-		}
-
-	}*/
-	/*public BufferedImage getButtImg(int id) {
-		return playing.getTileManger().getSprite(id);
-	}*/
-
 	public void draw(Graphics g) {
 
 		// Background
@@ -108,15 +75,6 @@ public class BottomBar {
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y))
 			SetGameState(MENU);
-		/*else {
-			for (MyButton b : tileButtons) {
-				if (b.getBounds().contains(x, y)) {
-					selectedTile = playing.getTileManger().getTile(b.getId());
-					playing.setSelectedTile(selectedTile);
-					return;
-				}
-			}
-		}*/
 
 	}
 
