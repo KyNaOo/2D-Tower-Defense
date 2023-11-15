@@ -18,7 +18,7 @@ public class Menu extends GameScene implements SceneMethods {
 	private BufferedImage img;
 	private ArrayList<BufferedImage> sprites = new ArrayList<>();
 
-	private MyButton bPlaying, bSettings, bQuit;
+	private MyButton bPlaying, bQuit;
 
 	public Menu(Game game) {
 		super(game);
@@ -36,7 +36,6 @@ public class Menu extends GameScene implements SceneMethods {
 		int yOffset = 100;
 
 		bPlaying = new MyButton("Play", x, y, w, h);
-		//bSettings = new MyButton("Settings", x, y + yOffset, w, h);
 		bQuit = new MyButton("Quit", x, y + yOffset * 2, w, h);
 
 	}

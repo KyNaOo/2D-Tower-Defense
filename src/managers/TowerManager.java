@@ -83,6 +83,8 @@ public class TowerManager {
 
         return (int) Math.hypot(xDiff, yDiff);
     }
-
-
+    public void reset(){
+        towers.clear();
+        towerAmount = 0;
+    }
 }

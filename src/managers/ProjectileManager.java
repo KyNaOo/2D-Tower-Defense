@@ -59,13 +59,28 @@ public class ProjectileManager {
 		for (Projectile p : projectiles)
 			if (p.isActive()) {
 				p.move();
+
 				if (isProjHittingEnemy(p)) {
 					p.setActive(false);
-				} else {
+				} else if (isProjOutsideBounds(p)){
+					p.setActive(false);
 					// we do nothing
 				}
 			}
 
+	}
+
+	private boolean isProjOutsideBounds(Projectile p) {
+		if (p.getPos().getX()>=0){
+			if (p.getPos().getX()<=640){
+				if (p.getPos().getY()>=0){
+					if (p.getPos().getY()<= 800){
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	private boolean isProjHittingEnemy(Projectile p) {
@@ -97,5 +112,8 @@ public class ProjectileManager {
 		}
 		return 0;
 	}
-
+	public void reset(){
+		projectiles.clear();
+		proj_id=0;
+	}
 }
