@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.text.DecimalFormat;
 
 import src.Scenes.Playing;
+import src.help.Constants;
 import src.help.Constants.Towers;
 import src.objects.Tower;
 
@@ -21,6 +22,9 @@ public class ActionBar extends Bar {
 	private Tower selectedTower;
 	private Tower displayedTower;
 	private DecimalFormat formatter;
+	private boolean showTowerCost;
+	private int towerCostType;
+	private int gold = 100;
 
 
 	public ActionBar(int x, int y, int width, int height, Playing playing) {
@@ -68,12 +72,37 @@ public class ActionBar extends Bar {
 		drawDisplayedTower(g);
 
 		drawWaveInfo(g);
+
+		drawGoldAmont(g);
+		if (showTowerCost){
+			drawTowerCost(g);
+		}
+	}
+
+	private void drawTowerCost(Graphics g) {
+		g.setColor(Color.gray);
+		g.fillRect(350, 650, 120, 50);
+		g.setColor(Color.black);
+		g.drawRect(350, 650, 120, 50);
+		g.drawString(getTowerCostName(), 355, 670);
+		g.drawString("Cost:"+ getTowerCostCost() + "g", 355, 695);
+	}
+
+	private int getTowerCostCost() {
+		return src.help.Constants.Towers.GetTowerCost(towerCostType);
+	}
+
+	private String getTowerCostName() {
+		return src.help.Constants.Towers.GetName(towerCostType);
+	}
+
+	private void drawGoldAmont(Graphics g) {
+		g.drawString("Gold: " + gold,110, 725);
 	}
 
 	private void drawWaveInfo(Graphics g) {
+		g.setColor(Color.black);
 		g.setFont(new Font("LucidaSans", Font.BOLD, 20));
-		drawWaveTimerInfo(g);
-		drawEnemiesLeftInfo(g);
 		drawWavesLeftInfo(g);
 	}
 
@@ -81,22 +110,7 @@ public class ActionBar extends Bar {
 		int current = playing.getWaveManager().getWaveIndex();
 		int size = playing.getWaveManager().getWaves().size();
 
-		g.drawString("Wave " + (current + 1) + " / " + size, 425, 680);
-	}
-
-	private void drawEnemiesLeftInfo(Graphics g) {
-		int remaining = playing.getEnemyManager().getAmountOfAliveEnemies();
-		g.drawString("Enemies left: " + remaining, 425, 720);
-	}
-
-	private void drawWaveTimerInfo(Graphics g){
-		if (playing.getWaveManager().isWaveTimerStarted()){
-			g.setFont(new Font("LucidaSans", Font.BOLD, 20));
-			g.setColor(Color.black);
-			float timeLeft = playing.getWaveManager().getTimeLeft();
-			String formatedText = formatter.format(timeLeft);
-			g.drawString("Time left: " + formatedText, 425, 660);
-		}
+		g.drawString("Wave " + (current + 1) + " / " + size, 275, 725);
 	}
 
 	public void mouseClicked(int x, int y) {
@@ -105,6 +119,9 @@ public class ActionBar extends Bar {
 		else {
 			for(MyButton b : towerButtons) {
 				if(b.getBounds().contains(x, y)) {
+					if (!isGoldEnoughForTower(b.getId())){
+						return;
+					}
 					selectedTower = new Tower(0,0,-1,b.getId());
 					playing.setSelectedTower(selectedTower);
 					return;
@@ -114,8 +131,14 @@ public class ActionBar extends Bar {
 
 	}
 
+	private boolean isGoldEnoughForTower(int towerType) {
+		return gold >= Constants.Towers.GetTowerCost(towerType);
+
+	}
+
 	public void mouseMoved(int x, int y) {
 		bMenu.setMouseOver(false);
+		showTowerCost = false;
 		for (MyButton b : towerButtons)
 			b.setMouseOver(false);
 
@@ -125,6 +148,8 @@ public class ActionBar extends Bar {
 			for (MyButton b : towerButtons)
 				if (b.getBounds().contains(x, y)) {
 					b.setMouseOver(true);
+					showTowerCost = true;
+					towerCostType = b.getId();
 					return;
 				}
 		}
@@ -174,4 +199,11 @@ public class ActionBar extends Bar {
 		displayedTower = t;
 	}
 
+	public void payForTower(int towerType) {
+		this.gold -= Constants.Towers.GetTowerCost(towerType);
+	}
+
+	public void addGold(int getReward) {
+		this.gold+= getReward;
+	}
 }

@@ -21,6 +21,7 @@ public class EnemyManager {
 	//private float speed = 0.5f;
 	private int HPbarWidth=20;
 
+
 	public EnemyManager(Playing playing) {
 		this.playing = playing;
 		enemyImgs = new BufferedImage[4];
@@ -139,16 +140,16 @@ public class EnemyManager {
 		int y = 64;
 		switch (enemyType){
 			case PLANT_BASIC:
-				enemies.add(new PlantBasic(x, y, 0));
+				enemies.add(new PlantBasic(x, y, 0, this));
 				break;
 			case PLANT_FAST:
-				enemies.add(new PlantFast(x, y, 1));
+				enemies.add(new PlantFast(x, y, 1, this));
 				break;
 			case PLANT_WARRIOR:
-				enemies.add(new PlantWarrior(x, y, 2));
+				enemies.add(new PlantWarrior(x, y, 2, this));
 				break;
 			case PLANT_BOSS:
-				enemies.add(new PlantBoss(x, y, 3));
+				enemies.add(new PlantBoss(x, y, 3, this));
 				break;
 		}
 	}
@@ -189,5 +190,9 @@ public class EnemyManager {
 			}
 		}
 		return size;
+	}
+
+	public void rewardPlayer(int enemyType) {
+		playing.rewardPlayer(enemyType);
 	}
 }

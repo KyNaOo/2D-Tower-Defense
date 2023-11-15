@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import src.Entities.APlant;
+import src.help.Constants;
 import src.help.LevelBuild;
 import src.help.LoadSave;
 import src.main.Game;
@@ -26,13 +27,14 @@ public class Playing extends GameScene implements SceneMethods {
 	private EnemyManager enemyManager;
 	private TowerManager towerManager;
 	private Tower selectedTower;
+	private int goldTick = 0;
 
 	public Playing(Game game) {
 		super(game);
 
 		loadDefaultLevel();
 		tileManager = new TileManager();
-		actionBar = new ActionBar(0, 640, 640, 100, this);
+		actionBar = new ActionBar(0, 640, 640, 160, this);
 
 		enemyManager = new EnemyManager(this);
 		towerManager = new TowerManager(this);
@@ -56,6 +58,10 @@ public class Playing extends GameScene implements SceneMethods {
 		enemyManager.update();
 		towerManager.update();
 		waveManager.update();
+		goldTick++;
+		if (goldTick % (60) == 0 ){
+			actionBar.addGold(1);
+		}
 		if (isTimeForNewEnemy()){
 			spawnEnemy();
 		}
@@ -163,7 +169,9 @@ public class Playing extends GameScene implements SceneMethods {
 			if (isTileStone(mouseX, mouseY)) {
 				if (getTowerAt(mouseX, mouseY) == null) {
 					towerManager.addTower(selectedTower, mouseX, mouseY);
+					removeGold(selectedTower.getTowerType());
 					selectedTower = null;
+
 				}
 			}
 		} else {
@@ -174,6 +182,13 @@ public class Playing extends GameScene implements SceneMethods {
 		}
 	}
 
+	}
+
+	private void removeGold(int towerType) {
+		actionBar.payForTower(towerType);
+	}
+	public void rewardPlayer(int enemyType){
+		actionBar.addGold(Constants.Plants.GetReward(enemyType));
 	}
 
 	private boolean isTileStone(int x, int y) {

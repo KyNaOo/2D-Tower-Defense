@@ -1,5 +1,7 @@
 package src.Entities;
 
+import src.managers.EnemyManager;
+
 import java.awt.Rectangle;
 
 import static src.help.Constants.Direction.*;
@@ -7,14 +9,16 @@ import static src.help.Constants.Direction.*;
 
 public abstract class APlant {
 
-    private float x, y;
-    private Rectangle bounds;
-    private int health;
-    private int maxHealth;
-    private int ID;
-    private int enemyType;
-    private int lastDir;
-    private boolean alive = true;
+    protected float x, y;
+    protected Rectangle bounds;
+    protected int health;
+    protected int maxHealth;
+    protected int ID;
+    protected int enemyType;
+    protected int lastDir;
+    protected boolean alive = true;
+    protected EnemyManager enemyManager;
+
 
     public int getLastDir() {
         return lastDir;
@@ -25,11 +29,12 @@ public abstract class APlant {
         maxHealth=health;
     }
 
-    public APlant(float x, float y, int ID, int enemyType) {
+    public APlant(float x, float y, int ID, int enemyType, EnemyManager enemyManager) {
         this.x = x;
         this.y = y;
         this.ID = ID;
         this.enemyType = enemyType;
+        this.enemyManager = enemyManager;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
         lastDir = -1;
         setStartHealth();
@@ -96,6 +101,7 @@ public abstract class APlant {
         this.health -= dmg;
         if(health<=0){
             alive=false;
+            enemyManager.rewardPlayer(enemyType);
         }
     }
 }
