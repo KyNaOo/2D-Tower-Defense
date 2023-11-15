@@ -15,6 +15,8 @@ public abstract class APlant {
     private int enemyType;
     private int lastDir;
     private boolean alive = true;
+    protected int slowTickLimit = 120;
+	protected int slowTick = slowTickLimit;
 
     public int getLastDir() {
         return lastDir;
@@ -34,9 +36,17 @@ public abstract class APlant {
         lastDir = -1;
         setStartHealth();
     }
+    
+    public void slow() {
+		slowTick = 0;
+	}
 
     public void move(float speed, int dir) {
         lastDir = dir;
+        if (slowTick < slowTickLimit) {
+			slowTick++;
+			speed *= 0.5f;
+		}
         switch (dir){
             case LEFT :
                 this.x-=speed;
@@ -104,5 +114,9 @@ public abstract class APlant {
     private void updateHitbox() {
 		bounds.x = (int) x;
 		bounds.y = (int) y;
+	}
+
+    public boolean isSlowed() {
+		return slowTick < slowTickLimit;
 	}
 }
