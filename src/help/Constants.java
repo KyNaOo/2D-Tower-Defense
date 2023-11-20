@@ -41,11 +41,11 @@ public class Constants {
 			case CANNON:
 				return 100;
 			case ARCHER:
-				return 50;
+				return 80;
 			case WIZARD:
-				return 50;
-            case LASER:
 				return 60;
+            case LASER:
+				return 55;
 			}
             return 0;
         }
@@ -55,11 +55,11 @@ public class Constants {
 			case CANNON:
 				return 100;
 			case ARCHER:
-				return 150;
+				return 180;
 			case WIZARD:
 				return 125;
             case LASER:
-				return 180;
+				return 150;
 			}
             return 0;
             
@@ -74,7 +74,7 @@ public class Constants {
 			case WIZARD:
 				return 50;
             case LASER:
-				return 5;
+				return 35;
 			}
             return 0;
             
@@ -111,7 +111,7 @@ public class Constants {
                 case CHAINS:
                      return 7f;
                 case LAZER:
-                     return 10f;
+                     return 8f;
             }
             return 0f;
         }
