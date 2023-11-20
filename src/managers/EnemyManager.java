@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import src.Entities.*;
 import src.help.LoadSave;
 import src.Scenes.Playing;
+import src.objects.*;
 
 import static src.help.Constants.Direction.*;
 

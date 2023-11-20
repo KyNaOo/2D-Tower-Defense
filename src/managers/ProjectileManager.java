@@ -5,12 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import src.Entities.APlant;
+import src.objects.APlant;
 import src.help.LoadSave;
+import src.objects.IAlly;
 import src.objects.Projectile;
 import src.objects.Zombie;
 import src.Scenes.Playing;
-import static src.help.Constants.Towers.*;
 import static src.help.Constants.Projectiles.*;
 
 public class ProjectileManager {
@@ -36,7 +36,7 @@ public class ProjectileManager {
     }
 
 	
-    public void newProjectile(Zombie t, APlant e) {
+    public void newProjectile(IAlly t, APlant e) {
 		int type = getProjType(t);
 
 		int xDist = (int) (t.getX() - e.getX());
@@ -148,15 +148,15 @@ public class ProjectileManager {
 
 	}
 
-	private int getProjType(Zombie t) {
+	private int getProjType(IAlly t) {
 		switch (t.getTowerType()) {
-		case ARCHER:
+		case 0:
 			return ARROW;
-		case CANNON:
-			return BOMB;
-		case WIZARD:
+		case 1:
 			return CHAINS;
-        case LASER:
+		case 2:
+			return BOMB;
+        case 3:
             return LAZER;
 		}
 		return 0;

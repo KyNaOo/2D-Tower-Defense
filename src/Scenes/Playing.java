@@ -3,7 +3,7 @@ package src.Scenes;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import src.Entities.APlant;
+import src.objects.APlant;
 import src.help.LevelBuild;
 
 import src.main.Game;
@@ -12,6 +12,7 @@ import src.managers.ProjectileManager;
 import src.managers.TileManager;
 import src.managers.TowerManager;
 import src.managers.WaveManager;
+import src.objects.IAlly;
 import src.objects.Zombie;
 import src.ui.ActionBar;
 import static src.help.Constants.Tiles.STONE_TILE;
@@ -166,7 +167,7 @@ public class Playing extends GameScene implements SceneMethods {
 			}
 		} else {
 		
-			Zombie t = getTowerAt(mouseX, mouseY);
+			IAlly t = getTowerAt(mouseX, mouseY);
 			actionBar.displayTower(t);
 		}
 	}
@@ -186,7 +187,7 @@ public class Playing extends GameScene implements SceneMethods {
 		return tileType == STONE_TILE;
 	}
 
-	private Zombie getTowerAt(int x, int y) {
+	private IAlly getTowerAt(int x, int y) {
 		return towerManager.getTowerAt(x, y);
 	}
 
@@ -244,16 +245,16 @@ public class Playing extends GameScene implements SceneMethods {
 		return enemyManager;
 	}
 
-	public void shootEnemy(Zombie t, APlant e) {
+	public void shootEnemy(IAlly t, APlant e) {
 		projectileManager.newProjectile(t, e);
 
 	}
 
-	public void removeTower(Zombie displayedZombie) {
+	public void removeTower(IAlly displayedZombie) {
 		towerManager.removeTower(displayedZombie);
 	}
 
-	public void upgradeTower(Zombie displayedZombie) {
+	public void upgradeTower(IAlly displayedZombie) {
 		towerManager.upgradeTower(displayedZombie);
 
 	}

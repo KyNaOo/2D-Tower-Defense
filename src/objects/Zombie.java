@@ -1,7 +1,5 @@
 package src.objects;
 
-import static src.help.Constants.Towers.*;
-
 public class Zombie implements IAlly {
 
 	private int x, y, id, towerType, cdTick, dmg;
@@ -24,21 +22,21 @@ public class Zombie implements IAlly {
 		this.tier++;
 
 		switch (towerType) {
-		case ARCHER:
+		case 0:
 			dmg += 2;
 			range += 20;
 			cooldown -= 5;
 			break;
-		case CANNON:
+		case 1:
+			range += 20;
+			cooldown -= 10;
+			break;
+		case 2:
 			dmg += 5;
 			range += 20;
 			cooldown -= 15;
 			break;
-		case WIZARD:
-			range += 20;
-			cooldown -= 10;
-			break;
-		case LASER :
+		case 3 :
 			range += 20;
 			cooldown -= 10;
 		}
@@ -58,18 +56,54 @@ public class Zombie implements IAlly {
 	}
 
 	private void setDefaultCooldown() {
-		cooldown = src.help.Constants.Towers.GetDefaultCooldown(towerType);
-
+		switch (towerType){
+			case 0:
+				cooldown =50;
+				break;
+			case 1:
+				cooldown =50;
+				break;
+			case 2:
+				cooldown =120;
+				break;
+			case 3:
+				cooldown =35;
+				break;
+		}
 	}
 
 	private void setDefaultRange() {
-		range = src.help.Constants.Towers.GetDefaultRange(towerType);
-
+		switch (towerType){
+			case 0:
+				range =180;
+				break;
+			case 1:
+				range =125;
+				break;
+			case 2:
+				range =100;
+				break;
+			case 3:
+				range =150;
+				break;
+		}
 	}
 
 	private void setDefaultDmg() {
-		dmg = src.help.Constants.Towers.GetStartDmg(towerType);
-
+		switch (towerType){
+			case 0:
+				dmg =80;
+				break;
+			case 1:
+				dmg =60;
+				break;
+			case 2:
+				dmg =100;
+				break;
+			case 3:
+				dmg =55;
+				break;
+		}
 	}
 
 	public int getX() {
@@ -100,7 +134,17 @@ public class Zombie implements IAlly {
 		return towerType;
 	}
 	public int getDamages(){
-		return GetStartDmg(this.towerType);
+			switch (towerType){
+				case 0:
+					return 80;
+				case 1:
+					return 60;
+				case 2:
+					return 100;
+				case 3:
+					return 100;
+			}
+			return 0;
 	}
 	public void setTowerType(int towerType) {
 		this.towerType = towerType;
@@ -120,6 +164,34 @@ public class Zombie implements IAlly {
 
 	public int getTier() {
 		return tier;
+	}
+	public int getCost(){
+		switch (towerType){
+			case 0:
+				return 30;
+			case 1:
+				return 45;
+			case 2:
+				return 50;
+			case 3:
+				return 75;
+		}
+		return 0;
+	}
+
+	@Override
+	public String getName() {
+		switch (towerType){
+			case 0:
+				return "Archer";
+			case 1:
+				return "Wizard";
+			case 2:
+				return "Cannon";
+			case 3:
+				return "Laser";
+		}
+		return "";
 	}
 
 }

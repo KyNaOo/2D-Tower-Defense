@@ -6,9 +6,7 @@ import java.awt.Graphics;
 import java.text.DecimalFormat;
 
 import src.Scenes.Playing;
-import src.help.Constants;
-import src.help.Constants.Towers;
-import src.objects.Zombie;
+import src.objects.*;
 
 import static src.main.GameStates.*;
 
@@ -19,7 +17,7 @@ public class ActionBar extends Bar {
 
 	private MyButton[] towerButtons;
 	private Zombie selectedZombie;
-	private Zombie displayedZombie;
+	private IAlly displayedZombie;
 	private DecimalFormat formatter;
 	private boolean showTowerCost;
 	private int towerCostType;
@@ -115,11 +113,31 @@ public class ActionBar extends Bar {
 	}
 
 	private int getTowerCostCost() {
-		return src.help.Constants.Towers.GetTowerCost(towerCostType);
+		switch (towerCostType){
+			case 0:
+				return 30;
+			case 1:
+				return 45;
+			case 2:
+				return 50;
+			case 3:
+				return 75;
+		}
+		return 0;
 	}
 
 	private String getTowerCostName() {
-		return src.help.Constants.Towers.GetName(towerCostType);
+		switch (towerCostType) {
+			case 0:
+				return "Archer";
+			case 1:
+				return "Wizard";
+			case 2:
+				return "Cannon";
+			case 3:
+				return "Laser";
+		}
+		return "";
 	}
 
 	private void drawGoldAmont(Graphics g) {
@@ -159,8 +177,20 @@ public class ActionBar extends Bar {
 				if (b.getBounds().contains(x, y)) {
 					if (!isGoldEnoughForTower(b.getId()))
 						return;
-
-					selectedZombie = new Zombie(0, 0, -1, b.getId());
+					switch (b.getId()){
+						case 0:
+							selectedZombie = new ZombieArcher(0, 0, -1);
+							break;
+						case 1:
+							selectedZombie = new ZombieWizard(0, 0, -1);
+							break;
+						case 2:
+							selectedZombie = new ZombieCannon(0, 0, -1);
+							break;
+						case 3:
+							selectedZombie = new ZombieLaser(0, 0, -1);
+							break;
+					}
 					playing.setSelectedTower(selectedZombie);
 					return;
 				}
@@ -170,8 +200,17 @@ public class ActionBar extends Bar {
 	}
 
 	private boolean isGoldEnoughForTower(int towerType) {
-		return gold >= Constants.Towers.GetTowerCost(towerType);
-
+		switch (towerType){
+			case 0:
+				return gold >=30;
+			case 1:
+				return gold >=45;
+			case 2:
+				return gold >=50;
+			case 3:
+				return gold >=75;
+		}
+		return false;
 	}
 
 	public void mouseMoved(int x, int y) {
@@ -249,7 +288,7 @@ public class ActionBar extends Bar {
 			g.drawRect(420, 650, 50, 50);
 			g.drawImage(playing.getTowerManager().getTowerImgs()[displayedZombie.getTowerType()], 420, 650, 50, 50, null);
 			g.setFont(new Font("LucidaSans", Font.BOLD, 15));
-			g.drawString("" + Towers.GetName(displayedZombie.getTowerType()), 480, 660);
+			g.drawString("" + displayedZombie.getName(), 480, 660);
 			g.drawString("ID: " + displayedZombie.getId(), 480, 675);
 			g.drawString("Tier: " + displayedZombie.getTier(), 560, 660);
 			drawDisplayedTowerBorder(g);
@@ -277,15 +316,14 @@ public class ActionBar extends Bar {
 
 	}
 
-	private int getUpgradeAmount(Zombie displayedZombie) {
-		return (int) (src.help.Constants.Towers.GetTowerCost(displayedZombie.getTowerType()) * 0.3f);
+	private int getUpgradeAmount(IAlly displayedZombie) {
+		return (int) (displayedZombie.getCost()*0.3f);
 	}
 
-	private int getSellAmount(Zombie displayedZombie) {
+	private int getSellAmount(IAlly displayedZombie) {
 		int upgradeCost = (displayedZombie.getTier() - 1) * getUpgradeAmount(displayedZombie);
 		upgradeCost *= 0.5f;
-
-		return src.help.Constants.Towers.GetTowerCost(displayedZombie.getTowerType()) / 2 + upgradeCost;
+		return displayedZombie.getCost() / 2 + upgradeCost;
 	}
 
 	private void drawDisplayedTowerRange(Graphics g) {
@@ -295,7 +333,7 @@ public class ActionBar extends Bar {
 
 	private void sellTowerClicked() {
 		playing.removeTower(displayedZombie);
-		gold += src.help.Constants.Towers.GetTowerCost(displayedZombie.getTowerType()) / 2;
+		gold += displayedZombie.getCost() / 2;
 
 		int upgradeCost = (displayedZombie.getTier() - 1) * getUpgradeAmount(displayedZombie);
 		upgradeCost *= 0.5f;
@@ -318,12 +356,25 @@ public class ActionBar extends Bar {
 
 	}
 
-	public void displayTower(Zombie t) {
+	public void displayTower(IAlly t) {
 		displayedZombie = t;
 	}
 
 	public void payForTower(int towerType) {
-		this.gold -= Constants.Towers.GetTowerCost(towerType);
+		switch (towerType){
+			case 0:
+				this.gold -=30;
+				break;
+			case 1:
+				this.gold -=45;
+				break;
+			case 2:
+				this.gold -=50;
+				break;
+			case 3:this.gold -=70;
+
+				break;
+		}
 	}
 
 	public void addGold(int getReward) {

@@ -5,15 +5,14 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import src.help.LoadSave;
-import src.objects.Zombie;
-import src.Entities.APlant;
+import src.objects.*;
 import src.Scenes.Playing;
 
 public class TowerManager {
 
     private Playing playing;
     private BufferedImage[] towerImgs;
-    private ArrayList<Zombie> Zombies = new ArrayList<>();
+    private ArrayList<IAlly> Zombies = new ArrayList<>();
     private int towerAmount = 0;
 
     public TowerManager(Playing playing) {
@@ -29,18 +28,31 @@ public class TowerManager {
     }
 
     public void addTower(Zombie selectedZombie, int xPos, int yPos) {
-        Zombies.add(new Zombie(xPos, yPos, towerAmount++, selectedZombie.getTowerType()));
+        switch (selectedZombie.getTowerType()){
+            case 0:
+                Zombies.add(new ZombieArcher(xPos, yPos, towerAmount++));
+                break;
+            case 1:
+                Zombies.add(new ZombieWizard(xPos, yPos, towerAmount++));
+                break;
+            case 2:
+                Zombies.add(new ZombieCannon(xPos, yPos, towerAmount++));
+                break;
+            case 3:
+                Zombies.add(new ZombieLaser(xPos, yPos, towerAmount++));
+                break;
+        }
     }
 
 	public void update() {
-		for(Zombie t : Zombies){
+		for(IAlly t : Zombies){
 			t.update();
 			attackEnemyIfClose(t);
 		}
 		
 	}
 
-	private void attackEnemyIfClose(Zombie t) {
+	private void attackEnemyIfClose(IAlly t) {
 		for (APlant e : playing.getEnemyManager().getEnemies()) {
 			if (e.isAlive())
 				if (isEnemyInRange(t, e)) {
@@ -55,7 +67,7 @@ public class TowerManager {
 
 
     public void draw(Graphics g) {
-        for (Zombie t : Zombies)
+        for (IAlly t : Zombies)
             g.drawImage(towerImgs[t.getTowerType()], t.getX(), t.getY(), null);
     }
 
@@ -63,14 +75,14 @@ public class TowerManager {
         return towerImgs;
     }
 
-    public Zombie getTowerAt(int x, int y) {
-        for (Zombie t : Zombies)
+    public IAlly getTowerAt(int x, int y) {
+        for (IAlly t : Zombies)
             if (t.getX() == x)
                 if (t.getY() == y)
                     return t;
         return null;
     }
-    private boolean isEnemyInRange(Zombie t, APlant e) {
+    private boolean isEnemyInRange(IAlly t, APlant e) {
         int range = GetHypoDistance(t.getX(), t.getY(), e.getX(), e.getY());
         return range < t.getRange();
     }
@@ -81,13 +93,13 @@ public class TowerManager {
 
         return (int) Math.hypot(xDiff, yDiff);
     }
-	public void upgradeTower(Zombie displayedZombie) {
-		for(Zombie t : Zombies)
+	public void upgradeTower(IAlly displayedZombie) {
+		for(IAlly t : Zombies)
 			if(t.getId() == displayedZombie.getId())
 				t.upgradeTower();
 	}
 
-	public void removeTower(Zombie displayedZombie) {
+	public void removeTower(IAlly displayedZombie) {
 		for (int i = 0; i < Zombies.size(); i++)
 			if (Zombies.get(i).getId() == displayedZombie.getId())
 				Zombies.remove(i);

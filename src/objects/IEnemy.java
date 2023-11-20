@@ -1,4 +1,4 @@
-package src.Entities;
+package src.objects;
 
 public interface IEnemy {
     public int getHealth();

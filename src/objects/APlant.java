@@ -1,4 +1,4 @@
-package src.Entities;
+package src.objects;
 
 import src.managers.EnemyManager;
 
