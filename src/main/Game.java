@@ -40,6 +40,7 @@ public class Game extends JFrame implements Runnable {
 		add(gameScreen);
 		pack();
 		setVisible(true);
+		setTitle("Zombie vs Plant");
 
 	}
 

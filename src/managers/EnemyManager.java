@@ -162,7 +162,7 @@ public class EnemyManager {
 	}
 
 	private void drawHealthBar(APlant e, Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(Color.green);
 		g.fillRect((int)e.getX()+16-(getNewBarWidth(e)/2), (int)e.getY()-5, getNewBarWidth(e), 3);
 	}
 

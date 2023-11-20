@@ -92,7 +92,7 @@ public class ActionBar extends Bar {
 	}
 
 	private void drawTowerCost(Graphics g) {
-		g.setColor(Color.gray);
+		g.setColor(Color.yellow);
 		g.fillRect(350, 650, 120, 50);
 		g.setColor(Color.black);
 		g.drawRect(350, 650, 120, 50);
@@ -281,7 +281,7 @@ public class ActionBar extends Bar {
 	}
 	private void drawDisplayedTower(Graphics g) {
 		if (displayedZombie != null) {
-			g.setColor(Color.gray);
+			g.setColor(Color.white);
 			g.fillRect(410, 645, 220, 85);
 			g.setColor(Color.black);
 			g.drawRect(410, 645, 220, 85);
@@ -327,7 +327,7 @@ public class ActionBar extends Bar {
 	}
 
 	private void drawDisplayedTowerRange(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.yellow);
 		g.drawOval(displayedZombie.getX()+16-(int)(displayedZombie.getRange()*2)/2, displayedZombie.getY()+16-(int)(displayedZombie.getRange()*2)/2, (int) displayedZombie.getRange()*2, (int) displayedZombie.getRange()*2);
 	}
 

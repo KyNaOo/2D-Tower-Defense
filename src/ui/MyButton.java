@@ -63,9 +63,9 @@ public class MyButton {
 
 	private void drawBody(Graphics g) {
 		if (mouseOver)
-			g.setColor(Color.gray);
+			g.setColor(Color.pink);
 		else
-			g.setColor(Color.WHITE);
+			g.setColor(Color.ORANGE);
 		g.fillRect(x, y, width, height);
 
 	}
