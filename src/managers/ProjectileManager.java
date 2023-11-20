@@ -118,7 +118,7 @@ public class ProjectileManager {
     private void explodeOnEnemies(Projectile p) {
 		for (APlant e : playing.getEnemyManager().getEnemies()) {
 			if (e.isAlive()) {
-				float radius = 40.0f;
+				float radius = 70.0f;
 
 				float xDist = Math.abs(p.getPos().x - e.getX());
 				float yDist = Math.abs(p.getPos().y - e.getY());

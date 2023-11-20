@@ -16,6 +16,7 @@ import static src.main.GameStates.*;
 public class Menu extends GameScene implements SceneMethods {
 
 	private BufferedImage img;
+	private BufferedImage backgroundImage;
 	private ArrayList<BufferedImage> sprites = new ArrayList<>();
 
 	private MyButton bPlaying, bQuit;
@@ -25,6 +26,7 @@ public class Menu extends GameScene implements SceneMethods {
 		importImg();
 		loadSprites();
 		initButtons();
+		importBackImg();
 	}
 
 	private void initButtons() {
@@ -35,16 +37,15 @@ public class Menu extends GameScene implements SceneMethods {
 		int y = 150;
 		int yOffset = 100;
 
-		bPlaying = new MyButton("Play", x, y, w, h);
+		bPlaying = new MyButton("Play", x, y + yOffset, w, h);
 		bQuit = new MyButton("Quit", x, y + yOffset * 2, w, h);
 
 	}
 
 	@Override
 	public void render(Graphics g) {
-
+		drawBackground(g);
 		drawButtons(g);
-
 	}
 
 	private void drawButtons(Graphics g) {
@@ -52,6 +53,11 @@ public class Menu extends GameScene implements SceneMethods {
 		bQuit.draw(g);
 
 	}
+	private void drawBackground(Graphics g) {
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, null);
+        }
+    }
 
 	private void importImg() {
 
@@ -74,6 +80,15 @@ public class Menu extends GameScene implements SceneMethods {
 		}
 
 	}
+
+	private void importBackImg() {
+        InputStream is = LoadSave.class.getClassLoader().getResourceAsStream("src/help/Image.png");
+        try {
+            backgroundImage = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	@Override
 	public void mouseClicked(int x, int y) {
