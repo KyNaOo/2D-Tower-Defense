@@ -101,7 +101,7 @@ public class ProjectileManager {
 
 			if (e.isAlive()){
                 
-            }
+            
 				if (e.getBounds().contains(p.getPos())) {
 					e.hurt(p.getDmg());
 					if(p.getProjectileType() == CHAINS)
@@ -110,8 +110,10 @@ public class ProjectileManager {
 					return true;
 				}
 		}
-		return false;
+		
 	}
+	return false;
+}
 
     private void explodeOnEnemies(Projectile p) {
 		for (APlant e : playing.getEnemyManager().getEnemies()) {
