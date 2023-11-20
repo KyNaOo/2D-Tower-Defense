@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import src.Entities.APlant;
-import src.help.Constants;
 import src.help.LevelBuild;
 
 import src.main.Game;
@@ -13,7 +12,7 @@ import src.managers.ProjectileManager;
 import src.managers.TileManager;
 import src.managers.TowerManager;
 import src.managers.WaveManager;
-import src.objects.Tower;
+import src.objects.Zombie;
 import src.ui.ActionBar;
 import static src.help.Constants.Tiles.STONE_TILE;
 
@@ -26,7 +25,7 @@ public class Playing extends GameScene implements SceneMethods {
 	private WaveManager waveManager;
 	private EnemyManager enemyManager;
 	private TowerManager towerManager;
-	private Tower selectedTower;
+	private Zombie selectedZombie;
 	private int goldTick = 0;
 	private ProjectileManager projectileManager;
 
@@ -117,8 +116,8 @@ public class Playing extends GameScene implements SceneMethods {
 		return true;
 	}
 
-	public void setSelectedTower(Tower selectedTower) {
-		this.selectedTower = selectedTower;
+	public void setSelectedTower(Zombie selectedZombie) {
+		this.selectedZombie = selectedZombie;
 	}
 
 	@Override
@@ -144,8 +143,8 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 
 	private void drawSelectedTower(Graphics g) {
-		if (selectedTower != null)
-			g.drawImage(towerManager.getTowerImgs()[selectedTower.getTowerType()], mouseX, mouseY, null);
+		if (selectedZombie != null)
+			g.drawImage(towerManager.getTowerImgs()[selectedZombie.getTowerType()], mouseX, mouseY, null);
 	}
 
 
@@ -156,19 +155,18 @@ public class Playing extends GameScene implements SceneMethods {
 		actionBar.mouseClicked(x, y);
 	else {
 
-		if (selectedTower != null) {
-	
+		if (selectedZombie != null) {
 			if (isTileStone(mouseX, mouseY)) {
 				if (getTowerAt(mouseX, mouseY) == null) {
-					towerManager.addTower(selectedTower, mouseX, mouseY);
-					removeGold(selectedTower.getTowerType());
-					selectedTower = null;
+					towerManager.addTower(selectedZombie, mouseX, mouseY);
+					removeGold(selectedZombie.getTowerType());
+					selectedZombie = null;
 
 				}
 			}
 		} else {
 		
-			Tower t = getTowerAt(mouseX, mouseY);
+			Zombie t = getTowerAt(mouseX, mouseY);
 			actionBar.displayTower(t);
 		}
 	}
@@ -188,13 +186,13 @@ public class Playing extends GameScene implements SceneMethods {
 		return tileType == STONE_TILE;
 	}
 
-	private Tower getTowerAt(int x, int y) {
+	private Zombie getTowerAt(int x, int y) {
 		return towerManager.getTowerAt(x, y);
 	}
 
 	public void keyPressed(KeyEvent e){
 		if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
-			selectedTower=null;
+			selectedZombie =null;
 		}
 	}
 
@@ -246,17 +244,17 @@ public class Playing extends GameScene implements SceneMethods {
 		return enemyManager;
 	}
 
-	public void shootEnemy(Tower t, APlant e) {
+	public void shootEnemy(Zombie t, APlant e) {
 		projectileManager.newProjectile(t, e);
 
 	}
 
-	public void removeTower(Tower displayedTower) {
-		towerManager.removeTower(displayedTower);
+	public void removeTower(Zombie displayedZombie) {
+		towerManager.removeTower(displayedZombie);
 	}
 
-	public void upgradeTower(Tower displayedTower) {
-		towerManager.upgradeTower(displayedTower);
+	public void upgradeTower(Zombie displayedZombie) {
+		towerManager.upgradeTower(displayedZombie);
 
 	}
 
@@ -272,7 +270,7 @@ public class Playing extends GameScene implements SceneMethods {
 		projectileManager.reset();
 		mouseX = 0;
 		mouseY = 0;
-		selectedTower = null;
+		selectedZombie = null;
 		goldTick = 0;
 	}
 }

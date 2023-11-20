@@ -8,7 +8,7 @@ import java.text.DecimalFormat;
 import src.Scenes.Playing;
 import src.help.Constants;
 import src.help.Constants.Towers;
-import src.objects.Tower;
+import src.objects.Zombie;
 
 import static src.main.GameStates.*;
 
@@ -18,8 +18,8 @@ public class ActionBar extends Bar {
 	private MyButton bMenu;
 
 	private MyButton[] towerButtons;
-	private Tower selectedTower;
-	private Tower displayedTower;
+	private Zombie selectedZombie;
+	private Zombie displayedZombie;
 	private DecimalFormat formatter;
 	private boolean showTowerCost;
 	private int towerCostType;
@@ -144,12 +144,12 @@ public class ActionBar extends Bar {
 			SetGameState(MENU);
 		else {
 
-			if (displayedTower != null) {
+			if (displayedZombie != null) {
 				if (sellTower.getBounds().contains(x, y)) {
 					sellTowerClicked();
 
 					return;
-				} else if (upgradeTower.getBounds().contains(x, y) && displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower)) {
+				} else if (upgradeTower.getBounds().contains(x, y) && displayedZombie.getTier() < 3 && gold >= getUpgradeAmount(displayedZombie)) {
 					upgradeTowerClicked();
 					return;
 				}
@@ -160,8 +160,8 @@ public class ActionBar extends Bar {
 					if (!isGoldEnoughForTower(b.getId()))
 						return;
 
-					selectedTower = new Tower(0, 0, -1, b.getId());
-					playing.setSelectedTower(selectedTower);
+					selectedZombie = new Zombie(0, 0, -1, b.getId());
+					playing.setSelectedTower(selectedZombie);
 					return;
 				}
 			}
@@ -187,11 +187,11 @@ public class ActionBar extends Bar {
 			bMenu.setMouseOver(true);
 		else {
 
-			if (displayedTower != null) {
+			if (displayedZombie != null) {
 				if (sellTower.getBounds().contains(x, y)) {
 					sellTower.setMouseOver(true);
 					return;
-				} else if (upgradeTower.getBounds().contains(x, y) && displayedTower.getTier() < 3) {
+				} else if (upgradeTower.getBounds().contains(x, y) && displayedZombie.getTier() < 3) {
 					upgradeTower.setMouseOver(true);
 					return;
 				}
@@ -212,11 +212,11 @@ public class ActionBar extends Bar {
 			bMenu.setMousePressed(true);
 		else {
 
-			if (displayedTower != null) {
+			if (displayedZombie != null) {
 				if (sellTower.getBounds().contains(x, y)) {
 					sellTower.setMousePressed(true);
 					return;
-				} else if (upgradeTower.getBounds().contains(x, y) && displayedTower.getTier() < 3) {
+				} else if (upgradeTower.getBounds().contains(x, y) && displayedZombie.getTier() < 3) {
 					upgradeTower.setMousePressed(true);
 					return;
 				}
@@ -241,17 +241,17 @@ public class ActionBar extends Bar {
 
 	}
 	private void drawDisplayedTower(Graphics g) {
-		if (displayedTower != null) {
+		if (displayedZombie != null) {
 			g.setColor(Color.gray);
 			g.fillRect(410, 645, 220, 85);
 			g.setColor(Color.black);
 			g.drawRect(410, 645, 220, 85);
 			g.drawRect(420, 650, 50, 50);
-			g.drawImage(playing.getTowerManager().getTowerImgs()[displayedTower.getTowerType()], 420, 650, 50, 50, null);
+			g.drawImage(playing.getTowerManager().getTowerImgs()[displayedZombie.getTowerType()], 420, 650, 50, 50, null);
 			g.setFont(new Font("LucidaSans", Font.BOLD, 15));
-			g.drawString("" + Towers.GetName(displayedTower.getTowerType()), 480, 660);
-			g.drawString("ID: " + displayedTower.getId(), 480, 675);
-			g.drawString("Tier: " + displayedTower.getTier(), 560, 660);
+			g.drawString("" + Towers.GetName(displayedZombie.getTowerType()), 480, 660);
+			g.drawString("ID: " + displayedZombie.getId(), 480, 675);
+			g.drawString("Tier: " + displayedZombie.getTier(), 560, 660);
 			drawDisplayedTowerBorder(g);
 			drawDisplayedTowerRange(g);
 
@@ -260,66 +260,66 @@ public class ActionBar extends Bar {
 			drawButtonFeedback(g, sellTower);
 
 			// Upgrade Button
-			if (displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower)) {
+			if (displayedZombie.getTier() < 3 && gold >= getUpgradeAmount(displayedZombie)) {
 				upgradeTower.draw(g);
 				drawButtonFeedback(g, upgradeTower);
 			}
 
 			if (sellTower.isMouseOver()) {
 				g.setColor(Color.red);
-				g.drawString("Sell for: " + getSellAmount(displayedTower) + "g", 480, 695);
-			} else if (upgradeTower.isMouseOver() && gold >= getUpgradeAmount(displayedTower)) {
+				g.drawString("Sell for: " + getSellAmount(displayedZombie) + "g", 480, 695);
+			} else if (upgradeTower.isMouseOver() && gold >= getUpgradeAmount(displayedZombie)) {
 				g.setColor(Color.blue);
-				g.drawString("Upgrade for: " + getUpgradeAmount(displayedTower) + "g", 480, 695);
+				g.drawString("Upgrade for: " + getUpgradeAmount(displayedZombie) + "g", 480, 695);
 			}
 
 		}
 
 	}
 
-	private int getUpgradeAmount(Tower displayedTower) {
-		return (int) (src.help.Constants.Towers.GetTowerCost(displayedTower.getTowerType()) * 0.3f);
+	private int getUpgradeAmount(Zombie displayedZombie) {
+		return (int) (src.help.Constants.Towers.GetTowerCost(displayedZombie.getTowerType()) * 0.3f);
 	}
 
-	private int getSellAmount(Tower displayedTower) {
-		int upgradeCost = (displayedTower.getTier() - 1) * getUpgradeAmount(displayedTower);
+	private int getSellAmount(Zombie displayedZombie) {
+		int upgradeCost = (displayedZombie.getTier() - 1) * getUpgradeAmount(displayedZombie);
 		upgradeCost *= 0.5f;
 
-		return src.help.Constants.Towers.GetTowerCost(displayedTower.getTowerType()) / 2 + upgradeCost;
+		return src.help.Constants.Towers.GetTowerCost(displayedZombie.getTowerType()) / 2 + upgradeCost;
 	}
 
 	private void drawDisplayedTowerRange(Graphics g) {
 		g.setColor(Color.white);
-		g.drawOval(displayedTower.getX()+16-(int)(displayedTower.getRange()*2)/2, displayedTower.getY()+16-(int)(displayedTower.getRange()*2)/2, (int)displayedTower.getRange()*2, (int)displayedTower.getRange()*2);
+		g.drawOval(displayedZombie.getX()+16-(int)(displayedZombie.getRange()*2)/2, displayedZombie.getY()+16-(int)(displayedZombie.getRange()*2)/2, (int) displayedZombie.getRange()*2, (int) displayedZombie.getRange()*2);
 	}
 
 	private void sellTowerClicked() {
-		playing.removeTower(displayedTower);
-		gold += src.help.Constants.Towers.GetTowerCost(displayedTower.getTowerType()) / 2;
+		playing.removeTower(displayedZombie);
+		gold += src.help.Constants.Towers.GetTowerCost(displayedZombie.getTowerType()) / 2;
 
-		int upgradeCost = (displayedTower.getTier() - 1) * getUpgradeAmount(displayedTower);
+		int upgradeCost = (displayedZombie.getTier() - 1) * getUpgradeAmount(displayedZombie);
 		upgradeCost *= 0.5f;
 		gold += upgradeCost;
 
-		displayedTower = null;
+		displayedZombie = null;
 
 	}
 
 	private void upgradeTowerClicked() {
-		playing.upgradeTower(displayedTower);
-		gold -= getUpgradeAmount(displayedTower);
+		playing.upgradeTower(displayedZombie);
+		gold -= getUpgradeAmount(displayedZombie);
 
 	}
 
 	private void drawDisplayedTowerBorder(Graphics g) {
 
 		g.setColor(Color.CYAN);
-		g.drawRect(displayedTower.getX(), displayedTower.getY(), 32, 32);
+		g.drawRect(displayedZombie.getX(), displayedZombie.getY(), 32, 32);
 
 	}
 
-	public void displayTower(Tower t) {
-		displayedTower = t;
+	public void displayTower(Zombie t) {
+		displayedZombie = t;
 	}
 
 	public void payForTower(int towerType) {
@@ -335,7 +335,7 @@ public class ActionBar extends Bar {
 		towerCostType = 0;
 		showTowerCost = false;
 		gold = 100;
-		selectedTower = null;
-		displayedTower = null;
+		selectedZombie = null;
+		displayedZombie = null;
 	}
 }

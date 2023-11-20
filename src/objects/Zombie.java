@@ -1,18 +1,15 @@
 package src.objects;
 
-import static src.help.Constants.Towers.ARCHER;
-import static src.help.Constants.Towers.CANNON;
-import static src.help.Constants.Towers.LASER;
-import static src.help.Constants.Towers.WIZARD;
+import static src.help.Constants.Towers.*;
 
-public class Tower {
+public class Zombie implements IAlly {
 
 	private int x, y, id, towerType, cdTick, dmg;
 	private float range, cooldown;
 
 	private int tier;
 
-	public Tower(int x, int y, int id, int towerType) {
+	public Zombie(int x, int y, int id, int towerType) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
@@ -23,7 +20,7 @@ public class Tower {
 		setDefaultCooldown();
 	} 	
 
-		public void upgradeTower() {
+	public void upgradeTower() {
 		this.tier++;
 
 		switch (towerType) {
@@ -102,7 +99,9 @@ public class Tower {
 	public int getTowerType() {
 		return towerType;
 	}
-
+	public int getDamages(){
+		return GetStartDmg(this.towerType);
+	}
 	public void setTowerType(int towerType) {
 		this.towerType = towerType;
 	}

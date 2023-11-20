@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import src.Entities.APlant;
 import src.help.LoadSave;
 import src.objects.Projectile;
-import src.objects.Tower;
+import src.objects.Zombie;
 import src.Scenes.Playing;
 import static src.help.Constants.Towers.*;
 import static src.help.Constants.Projectiles.*;
@@ -36,7 +36,7 @@ public class ProjectileManager {
     }
 
 	
-    public void newProjectile(Tower t, APlant e) {
+    public void newProjectile(Zombie t, APlant e) {
 		int type = getProjType(t);
 
 		int xDist = (int) (t.getX() - e.getX());
@@ -146,7 +146,7 @@ public class ProjectileManager {
 
 	}
 
-	private int getProjType(Tower t) {
+	private int getProjType(Zombie t) {
 		switch (t.getTowerType()) {
 		case ARCHER:
 			return ARROW;
