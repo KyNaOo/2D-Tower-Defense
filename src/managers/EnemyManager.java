@@ -10,7 +10,7 @@ import src.help.LoadSave;
 import src.Scenes.Playing;
 
 import static src.help.Constants.Direction.*;
-import static src.help.Constants.Plants.*;
+
 import static src.help.Constants.Tiles.*;
 
 public class EnemyManager {
@@ -50,10 +50,10 @@ public class EnemyManager {
 		if (e.getLastDir() == -1){
 			setNewDirectionAndMove(e);
 		}
-		int newX = (int) (e.getX() + getSpeedAndWidth(e.getLastDir(),e.getEnemyType()));
-		int newY = (int) (e.getY() + getSpeedAndHeight(e.getLastDir(),e.getEnemyType()));
+		int newX = (int) (e.getX() + getSpeedAndWidth(e.getLastDir(),e));
+		int newY = (int) (e.getY() + getSpeedAndHeight(e.getLastDir(),e));
 		if (getTileType(newX, newY)== ROAD_TILE){
-			e.move(GetSpeed(e.getEnemyType()), e.getLastDir());
+			e.move(e.getSpeed(), e.getLastDir());
 		} else if (isAtEnd(e)){
 			e.kill();
 			playing.removeOneLife();
@@ -71,18 +71,18 @@ public class EnemyManager {
 			return;
 		}
 		if (dir == LEFT || dir == RIGHT){
-			int newY = (int) (e.getY() + getSpeedAndHeight(UP,e.getEnemyType()));
+			int newY = (int) (e.getY() + getSpeedAndHeight(UP,e));
 			if (getTileType((int)e.getX(), newY) == ROAD_TILE){
-				e.move(GetSpeed(e.getEnemyType()), UP);
+				e.move(e.getSpeed(), UP);
 			}else {
-				e.move(GetSpeed(e.getEnemyType()), DOWN);
+				e.move(e.getSpeed(), DOWN);
 			}
 		} else {
-			int newX = (int) (e.getX() + getSpeedAndWidth(RIGHT,e.getEnemyType()));
+			int newX = (int) (e.getX() + getSpeedAndWidth(RIGHT,e));
 			if (getTileType(newX, (int)e.getY())== ROAD_TILE){
-				e.move(GetSpeed(e.getEnemyType()), RIGHT);
+				e.move(e.getSpeed(), RIGHT);
 			} else {
-				e.move(GetSpeed(e.getEnemyType()), LEFT);
+				e.move(e.getSpeed(), LEFT);
 			}
 		}
 	}
@@ -114,38 +114,37 @@ public class EnemyManager {
 		return playing.getTileType(x,y);
 	}
 
-	private float getSpeedAndHeight(int dir, int enemyType) {
+	private float getSpeedAndHeight(int dir, APlant enemyType) {
 		if (dir == UP){
-			return -GetSpeed(enemyType);
+			return -enemyType.getSpeed();
 		} else if (dir == DOWN) {
-			return GetSpeed(enemyType) + 32;
+			return enemyType.getSpeed() + 32;
 		}
 		return 0;
 	}
 
-	private float getSpeedAndWidth(int dir, int enemyType) {
+	private float getSpeedAndWidth(int dir, APlant enemyType) {
 		if (dir == LEFT){
-			return -GetSpeed(enemyType);
+			return -enemyType.getSpeed();
 		} else if (dir == RIGHT) {
-			return GetSpeed(enemyType) + 32;
+			return enemyType.getSpeed() + 32;
 		}
 		return 0;
 	}
-
 	public void addEnemy(int enemyType) {
 		int x = 0;
 		int y = 64;
 		switch (enemyType){
-			case PLANT_BASIC:
+			case 0:
 				enemies.add(new PlantBasic(x, y, 0, this));
 				break;
-			case PLANT_FAST:
+			case 1:
 				enemies.add(new PlantFast(x, y, 1, this));
 				break;
-			case PLANT_WARRIOR:
+			case 2:
 				enemies.add(new PlantWarrior(x, y, 2, this));
 				break;
-			case PLANT_BOSS:
+			case 3:
 				enemies.add(new PlantBoss(x, y, 3, this));
 				break;
 		}
@@ -189,7 +188,7 @@ public class EnemyManager {
 		return size;
 	}
 
-	public void rewardPlayer(int enemyType) {
+	public void rewardPlayer(APlant enemyType) {
 		playing.rewardPlayer(enemyType);
 	}
 	public void reset(){

@@ -2,13 +2,11 @@ package src.Scenes;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import src.Entities.APlant;
 import src.help.Constants;
 import src.help.LevelBuild;
-import src.help.LoadSave;
+
 import src.main.Game;
 import src.managers.EnemyManager;
 import src.managers.ProjectileManager;
@@ -180,8 +178,8 @@ public class Playing extends GameScene implements SceneMethods {
 	private void removeGold(int towerType) {
 		actionBar.payForTower(towerType);
 	}
-	public void rewardPlayer(int enemyType){
-		actionBar.addGold(Constants.Plants.GetReward(enemyType));
+	public void rewardPlayer(APlant enemyType){
+		actionBar.addGold(enemyType.getReward());
 	}
 
 	private boolean isTileStone(int x, int y) {

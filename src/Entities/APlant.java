@@ -16,6 +16,8 @@ public abstract class APlant implements IEnemy{
     private int ID;
     private int enemyType;
     private int lastDir;
+    private float speed;
+    private int reward;
     private boolean alive = true;
     protected int slowTickLimit = 120;
 	protected int slowTick = slowTickLimit;
@@ -25,20 +27,18 @@ public abstract class APlant implements IEnemy{
         return lastDir;
     }
 
-    private void setStartHealth() {
-        health=src.help.Constants.Plants.GetStartHealth(enemyType);
-        maxHealth=health;
-    }
-
-    public APlant(float x, float y, int ID, int enemyType, EnemyManager enemyManager) {
+    public APlant(float x, float y, int ID,int enemyType, int pv,float speed, int reward, EnemyManager enemyManager) {
         this.x = x;
         this.y = y;
         this.ID = ID;
-        this.enemyType = enemyType;
+        this.reward=reward;
+        this.speed = speed;
+        this.maxHealth=pv;
+        this.health=pv;
+        this.enemyType=enemyType;
         this.enemyManager = enemyManager;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
         lastDir = -1;
-        setStartHealth();
     }
     
     public void slow() {
@@ -112,7 +112,7 @@ public abstract class APlant implements IEnemy{
         this.health -= dmg;
         if(health<=0 && isAlive()){
             alive=false;
-            enemyManager.rewardPlayer(enemyType);
+            enemyManager.rewardPlayer(this);
         }
     }
 
@@ -124,4 +124,12 @@ public abstract class APlant implements IEnemy{
     public boolean isSlowed() {
 		return slowTick < slowTickLimit;
 	}
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public int getReward() {
+        return reward;
+    }
 }

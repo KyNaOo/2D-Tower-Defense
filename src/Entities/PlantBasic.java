@@ -1,11 +1,11 @@
 package src.Entities;
 import src.managers.EnemyManager;
 
-import static src.help.Constants.Plants.*;
-public class PlantBasic extends APlant {
+
+public class PlantBasic extends APlant{
 
     public PlantBasic(float x, float y, int ID,  EnemyManager em) {
-        super(x, y, ID, PLANT_BASIC, em);
+        super(x, y, ID,0, 300,0.7f,5, em);
         
     }
 }

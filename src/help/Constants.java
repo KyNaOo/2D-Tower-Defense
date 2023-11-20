@@ -88,53 +88,6 @@ public class Constants {
 
     }
 
-    public static class Plants{
-        public static final int PLANT_BASIC = 0;
-        public static final int PLANT_FAST = 1;
-        public static final int PLANT_WARRIOR = 2;
-        public static final int PLANT_BOSS = 3;
-		public static int GetReward(int enemyType){
-			switch (enemyType) {
-				case PLANT_BASIC:
-					return 5;
-				case PLANT_BOSS:
-					return 25;
-				case PLANT_WARRIOR:
-					return 15;
-				case PLANT_FAST:
-					return 3;
-			}
-			return 0;
-		}
-
-        public static float GetSpeed(int enemyType) {
-			switch (enemyType) {
-			case PLANT_BASIC:
-				return 0.7f;
-			case PLANT_BOSS:
-				return 1f;
-			case PLANT_WARRIOR:
-				return 0.3f;
-			case PLANT_FAST:
-				return 2f;
-			}
-			return 0;
-		}
-
-        public static int GetStartHealth(int enemyType){
-            	switch (enemyType) {
-			case PLANT_BASIC:
-				return 300;
-			case PLANT_BOSS:
-				return 1500;
-			case PLANT_WARRIOR:
-				return 2000;
-			case PLANT_FAST:
-				return 300;
-			}
-            return 0;
-        }
-    }
     public static class Tiles{
         public static final int WATER_TILE = 0;
         public static final int GRASS_TILE = 1;
