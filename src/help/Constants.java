@@ -15,6 +15,10 @@ public class Constants {
         public static final int ROAD_TILE = 2;
         public static final int STONE_TILE = 3;
         public static final int END_TILE = 4;
+        public static final int BLUEFLOWER = 5;
+        public static final int REDFLOWER = 6;
+        public static final int GREENFLOWER = 7;
+        public static final int PINKFLOWER = 8;
     }
 
     public static class Projectiles{

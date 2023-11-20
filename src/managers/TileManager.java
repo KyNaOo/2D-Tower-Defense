@@ -9,7 +9,7 @@ import static src.help.Constants.Tiles.*;
 
 public class TileManager {
 
-	public Tile GRASS, WATER, ROAD, STONE;
+	public Tile GRASS, WATER, ROAD, STONE, FLOWER1,FLOWER2, FLOWER3, FLOWER4;
 	private BufferedImage atlas;
 	public ArrayList<Tile> tiles = new ArrayList<>();
 
@@ -28,6 +28,10 @@ public class TileManager {
 		tiles.add(ROAD = new Tile(getSprite(8, 0), id++, ROAD_TILE));
 		tiles.add(STONE = new Tile(getSprite(6,2), id++, STONE_TILE));
 		tiles.add(STONE = new Tile(getSprite(2,2), id++, END_TILE));
+		tiles.add(FLOWER1 = new Tile(getSprite(4,0),id++, BLUEFLOWER));
+		tiles.add(FLOWER1 = new Tile(getSprite(5,0),id++, REDFLOWER));
+		tiles.add(FLOWER1 = new Tile(getSprite(6,0),id++, GREENFLOWER));
+		tiles.add(FLOWER1 = new Tile(getSprite(7,0),id++, PINKFLOWER));
 
 
 	}
