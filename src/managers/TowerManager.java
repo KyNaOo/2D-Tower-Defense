@@ -96,7 +96,15 @@ public class TowerManager {
 	public void upgradeTower(IAlly displayedZombie) {
 		for(IAlly t : Zombies)
 			if(t.getId() == displayedZombie.getId())
-				t.upgradeTower();
+                if (t instanceof ZombieArcher){
+                    t.upgradeTower();
+                }else if (t instanceof ZombieWizard){
+                    t.upgradeTower();
+                }else if (t instanceof ZombieCannon){
+                    t.upgradeTower();
+                }else if (t instanceof ZombieLaser){
+                    t.upgradeTower();
+                }
 	}
 
 	public void removeTower(IAlly displayedZombie) {

@@ -2,44 +2,31 @@ package src.objects;
 
 public class Zombie implements IAlly {
 
-	private int x, y, id, towerType, cdTick, dmg;
-	private float range, cooldown;
+	protected int x, y, id, towerType, cdTick, dmg, cost;
+	protected float range, cooldown;
+	protected String name;
 
-	private int tier;
+	protected int tier;
 
-	public Zombie(int x, int y, int id, int towerType) {
+	public Zombie(int x, int y, int id, int towerType, float range, float cooldown, int dmg, int cost, String name) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
 		this.towerType = towerType;
+		this.range = range;
+		this.cooldown = cooldown;
+		this.dmg = dmg;
+		this.cost = cost;
+		this.name = name;
 		tier = 1;
-		setDefaultDmg();
-		setDefaultRange();
-		setDefaultCooldown();
-	} 	
-
-	public void upgradeTower() {
+	}
+	public void upgradeTower(int dmg, float range, float cooldown){
 		this.tier++;
-
-		switch (towerType) {
-		case 0:
-			dmg += 2;
-			range += 20;
-			cooldown -= 5;
-			break;
-		case 1:
-			range += 20;
-			cooldown -= 10;
-			break;
-		case 2:
-			dmg += 5;
-			range += 20;
-			cooldown -= 15;
-			break;
-		case 3 :
-			range += 20;
-			cooldown -= 10;
-		}
+		this.dmg += dmg;
+		this.range += range;
+		this.cooldown -= cooldown;
+	}
+	public void upgradeTower() {
 	}
 
 	public void update() {
@@ -53,57 +40,6 @@ public class Zombie implements IAlly {
 
 	public void resetCooldown() {
 		cdTick = 0;
-	}
-
-	private void setDefaultCooldown() {
-		switch (towerType){
-			case 0:
-				cooldown =50;
-				break;
-			case 1:
-				cooldown =50;
-				break;
-			case 2:
-				cooldown =120;
-				break;
-			case 3:
-				cooldown =35;
-				break;
-		}
-	}
-
-	private void setDefaultRange() {
-		switch (towerType){
-			case 0:
-				range =180;
-				break;
-			case 1:
-				range =125;
-				break;
-			case 2:
-				range =100;
-				break;
-			case 3:
-				range =150;
-				break;
-		}
-	}
-
-	private void setDefaultDmg() {
-		switch (towerType){
-			case 0:
-				dmg =80;
-				break;
-			case 1:
-				dmg =60;
-				break;
-			case 2:
-				dmg =100;
-				break;
-			case 3:
-				dmg =55;
-				break;
-		}
 	}
 
 	public int getX() {
@@ -133,19 +69,6 @@ public class Zombie implements IAlly {
 	public int getTowerType() {
 		return towerType;
 	}
-	public int getDamages(){
-			switch (towerType){
-				case 0:
-					return 80;
-				case 1:
-					return 60;
-				case 2:
-					return 100;
-				case 3:
-					return 100;
-			}
-			return 0;
-	}
 	public void setTowerType(int towerType) {
 		this.towerType = towerType;
 	}
@@ -166,32 +89,12 @@ public class Zombie implements IAlly {
 		return tier;
 	}
 	public int getCost(){
-		switch (towerType){
-			case 0:
-				return 30;
-			case 1:
-				return 45;
-			case 2:
-				return 50;
-			case 3:
-				return 75;
-		}
-		return 0;
+		return cost;
 	}
 
 	@Override
 	public String getName() {
-		switch (towerType){
-			case 0:
-				return "Archer";
-			case 1:
-				return "Wizard";
-			case 2:
-				return "Cannon";
-			case 3:
-				return "Laser";
-		}
-		return "";
+		return name;
 	}
 
 }

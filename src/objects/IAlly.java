@@ -1,7 +1,6 @@
 package src.objects;
 
 public interface IAlly {
-    int getDamages();
     float getRange();
     float getCooldown();
     void update();
@@ -14,8 +13,6 @@ public interface IAlly {
     int getTowerType();
     int getTier();
     int getDmg();
-
     int getCost();
-
     String getName();
 }
