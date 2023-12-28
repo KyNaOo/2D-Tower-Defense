@@ -71,3 +71,7 @@ You start the game with 25 hp and any plant that pass on the villager head will 
 You can upgrade your towers to increase the tower's stats.
 
 When you don't have hp anymore, you lost, and you can decide to retry or go back to the menu and quit the game.
+
+# Issues
+
+The game might not work if you try to run it with VsCode. So run it with IntelliJ
